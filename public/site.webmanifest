@@ -1,0 +1,13 @@
+{
+  "name": "রবীন্দ্র সরোবর পর্যটক নির্দেশিকা",
+  "short_name": "রবীন্দ্র সরোবর",
+  "lang": "bn-BD",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfaf5",
+  "theme_color": "#173a34",
+  "icons": [
+    { "src": "/icons/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

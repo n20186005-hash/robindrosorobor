@@ -1,0 +1,361 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { attraction, photos, faqs } from '../data/site';
+
+const ownUrl = Astro.site ? new URL('/', Astro.site).toString() : undefined;
+const latitudeBn = attraction.latitude.toLocaleString('bn-BD', { minimumFractionDigits: 6, maximumFractionDigits: 6 });
+const longitudeBn = attraction.longitude.toLocaleString('bn-BD', { minimumFractionDigits: 6, maximumFractionDigits: 6 });
+
+const attractionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristAttraction',
+  name: attraction.name,
+  description: 'ধানমন্ডি লেকের পাশে অবস্থিত উন্মুক্ত সাংস্কৃতিক মঞ্চ ও নগর জনপরিসর।',
+  ...(ownUrl ? { url: ownUrl } : {}),
+  image: [photos.hero.src, photos.stage.src, photos.event.src],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '৮ নম্বর, ধানমন্ডি লেক রোড',
+    addressLocality: 'ঢাকা',
+    postalCode: '১২০৫',
+    addressCountry: 'BD',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: attraction.latitude,
+    longitude: attraction.longitude,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
+    },
+  ],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: attraction.rating,
+    bestRating: 5,
+  },
+  isAccessibleForFree: true,
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+<BaseLayout
+  title="রবীন্দ্র সরোবর, ধানমন্ডি — ইতিহাস, যাতায়াত ও দর্শনার্থী নির্দেশিকা"
+  description="ঢাকার ধানমন্ডি লেকের রবীন্দ্র সরোবর সম্পর্কে ইতিহাস, উন্মুক্ত মঞ্চ, যাতায়াত, প্রবেশমূল্য, পার্কিং, সুবিধা, ভ্রমণের সময় ও সাধারণ জিজ্ঞাসার স্বাধীন অলাভজনক বাংলা নির্দেশিকা।"
+  imagePath="/icons/logo.svg"
+  structuredData={[attractionSchema, faqSchema]}
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-media">
+      <img src={photos.hero.src} alt={photos.hero.alt} width="2048" height="1536" fetchpriority="high" />
+      <p class="hero-photo-credit">ছবি: {photos.hero.credit} · <a href={photos.hero.licenseUrl} rel="noreferrer">{photos.hero.license}</a> · <a href={photos.hero.source} rel="noreferrer">উৎস</a></p>
+    </div>
+    <div class="shell hero-content">
+      <p class="hero-kicker">লেক · মঞ্চ · নগর সংস্কৃতি</p>
+      <h1 id="hero-title">রবীন্দ্র<br />সরোবর</h1>
+      <p class="hero-lead">
+        ধানমন্ডি লেকের জলরেখা ঘেঁষে একটি উন্মুক্ত মঞ্চ—যেখানে হাঁটা, আড্ডা, গান, কবিতা ও জনসমাগম
+        ঢাকার দৈনন্দিন সংস্কৃতির সঙ্গে একই দৃশ্যপটে মিশে যায়।
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#ভ্রমণ-পরিকল্পনা">ভ্রমণ পরিকল্পনা দেখুন</a>
+        <a class="btn btn-secondary" href="#মানচিত্র">মানচিত্রে অবস্থান</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="shell hero-facts" aria-label="দ্রুত তথ্য">
+    <div class="fact-strip">
+      <div class="fact"><span>অবস্থান</span><strong>ধানমন্ডি ৮ নম্বর লেক এলাকা</strong></div>
+      <div class="fact"><span>সাধারণ প্রবেশ</span><strong>সাধারণত বিনামূল্যে</strong></div>
+      <div class="fact"><span>মানচিত্র তালিকা</span><strong>২৪ ঘণ্টা · বাস্তব প্রবেশ যাচাইযোগ্য</strong></div>
+      <div class="fact"><span>দর্শনার্থী মূল্যায়ন</span><strong>প্রদর্শিত স্কোর ৪.৪ / ৫</strong></div>
+    </div>
+  </div>
+
+  <section class="section" id="পরিচিতি">
+    <div class="shell grid-2">
+      <div class="intro-card">
+        <p class="eyebrow">এক নজরে</p>
+        <h2 class="section-title">একটি মঞ্চের চেয়ে বেশি—এটি শহরের ব্যবহৃত জনপরিসর</h2>
+        <p>
+          রবীন্দ্র সরোবর ধানমন্ডি লেকের পাশে নির্মিত ধাপভিত্তিক উন্মুক্ত অ্যাম্ফিথিয়েটার। আনুষ্ঠানিক অনুষ্ঠান না থাকলেও
+          এখানে মানুষ বসে, হাঁটে, গল্প করে, অনুশীলন করে বা শুধু লেকের বাতাস নেয়। তাই এটিকে শুধু “দর্শনীয় স্থান” হিসেবে
+          নয়, বরং ঢাকার একটি জীবন্ত নাগরিক পরিসর হিসেবে দেখলে জায়গাটির চরিত্র সবচেয়ে ভালো বোঝা যায়।
+        </p>
+        <p>
+          উন্মুক্ত সূত্রে এটি রবীন্দ্র সরোবর, রবীন্দ্র সরোবর মুক্তমঞ্চ ও রবীন্দ্র সরোবর অ্যাম্ফিথিয়েটার—এই কয়েক নামে
+          উল্লেখিত। কলকাতার একই নামের স্থানটির সঙ্গে যেন গুলিয়ে না যায়, তাই এই নির্দেশিকায় সর্বত্র ধানমন্ডি, ঢাকা
+          পরিচয়টি স্পষ্ট রাখা হয়েছে।
+        </p>
+        <blockquote class="pullquote">
+          এখানে অভিজ্ঞতার মূল আকর্ষণ কোনো একক স্থাপত্য নয়; জল, বৃক্ষ, ধাপ, মানুষের উপস্থিতি ও সাংস্কৃতিক ব্যবহারের
+          সম্মিলনই জায়গাটিকে আলাদা করে।
+        </blockquote>
+      </div>
+      <figure class="photo-frame">
+        <img src={photos.stage.src} alt={photos.stage.alt} width="2048" height="1536" loading="lazy" />
+        <figcaption class="photo-credit">
+          ছবি: {photos.stage.credit} · <a href={photos.stage.licenseUrl} rel="noreferrer">{photos.stage.license}</a> · <a href={photos.stage.source} rel="noreferrer">উৎস</a>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section history-section" id="ইতিহাস">
+    <div class="shell">
+      <p class="eyebrow">ইতিহাস ও সাংস্কৃতিক প্রেক্ষিত</p>
+      <h2 class="section-title">ধানমন্ডি লেক থেকে নাগরিক সাংস্কৃতিক মঞ্চে</h2>
+      <p class="section-lead">
+        ধানমন্ডি এলাকার নগরায়ণ, লেককে ঘিরে জনপরিসর উন্নয়ন এবং পরবর্তী সাংস্কৃতিক ব্যবহারের ধারার ভেতরেই রবীন্দ্র
+        সরোবরের বর্তমান পরিচয় গড়ে উঠেছে। নথি ও সংবাদসূত্র যেখানে অনিশ্চিত, সেখানে আমরা অনুমানকে তথ্য হিসেবে
+        উপস্থাপন করিনি।
+      </p>
+
+      <div class="timeline" aria-label="ঐতিহাসিক ধারাবাহিকতা">
+        <article class="timeline-item">
+          <strong>লেকের পুরোনো জলভূমি</strong>
+          <p>ধানমন্ডি লেকের জলরেখা ঢাকার পুরোনো খাল ও জলপ্রবাহ ব্যবস্থার ইতিহাসের সঙ্গে যুক্ত; নগর সম্প্রসারণে এর ভূমিকা বদলেছে।</p>
+        </article>
+        <article class="timeline-item">
+          <strong>পরিকল্পিত ধানমন্ডি</strong>
+          <p>বিশ শতকের মাঝামাঝি ধানমন্ডি আবাসিক এলাকার বিকাশের সঙ্গে লেকটি শহুরে উন্মুক্ত জলাধার ও সবুজ পরিসর হিসেবে পরিচিতি পায়।</p>
+        </article>
+        <article class="timeline-item">
+          <strong>উন্মুক্ত মঞ্চের আবির্ভাব</strong>
+          <p>প্রকাশিত নগর-ইতিহাসে মঞ্চটির নির্মাণকে দুই হাজারের দশকের শুরুর দিকের জনপরিসর উন্নয়নের সঙ্গে যুক্ত করা হয়; সুনির্দিষ্ট উদ্বোধনী নথি সহজলভ্য নয়।</p>
+        </article>
+        <article class="timeline-item">
+          <strong>চলমান সাংস্কৃতিক ব্যবহার</strong>
+          <p>থিয়েটার, কবিতা, সংগীত, উৎসব ও নাগরিক সমাবেশের মাধ্যমে প্রায় দুই দশক ধরে মঞ্চটি ঢাকার সাংস্কৃতিক স্মৃতির অংশ হয়ে আছে।</p>
+        </article>
+      </div>
+
+      <aside class="update-note" aria-label="সাম্প্রতিক অবকাঠামো প্রেক্ষিত">
+        <strong>সাম্প্রতিক অবকাঠামো প্রেক্ষিত</strong>
+        <p>
+          ধানমন্ডি লেকের হাঁটার পথ, আলোকসজ্জা, রেলিং, পানি নিষ্কাশন ও জনসুবিধা উন্নয়নের নতুন পরিকল্পনা নিয়ে সাম্প্রতিক সময়ে আলোচনা হয়েছে। পরিকল্পনা বাস্তবায়নের পর্যায়ে কোনো অংশ সাময়িকভাবে ঘেরা, পথ পরিবর্তিত বা কম ব্যবহারযোগ্য হতে পারে। তাই ভ্রমণের দিন স্থানীয় নির্দেশনা ও কর্তৃপক্ষের নোটিশকে অগ্রাধিকার দিন।
+        </p>
+      </aside>
+
+      <div class="history-image">
+        <img src={photos.event.src} alt={photos.event.alt} width="1800" height="813" loading="lazy" />
+        <div class="history-note">
+          <h3>নাম, স্মৃতি ও একটি গুরুত্বপূর্ণ সতর্কতা</h3>
+          <p>
+            “রবীন্দ্র সরোবর” নামটি রবীন্দ্রনাথ ঠাকুরের সাংস্কৃতিক অনুষঙ্গ বহন করে এবং উন্মুক্ত গণমাধ্যমে বহুল ব্যবহৃত।
+            তবে সাম্প্রতিক প্রতিবেদনে স্থানটির আনুষ্ঠানিক নামকরণের নথি স্পষ্ট নয় বলা হয়েছে। তাই নামের উৎস নিয়ে কোনো
+            জনপ্রিয় কাহিনিকে আমরা সরকারি ইতিহাস হিসেবে দাবি করছি না।
+          </p>
+          <p>
+            সাম্প্রতিক আলোচনায় রক্ষণাবেক্ষণ, জলাবদ্ধতা, শব্দ ও বাণিজ্যিক ব্যবহারের চাপের কথাও উঠে এসেছে। এসব বাস্তবতা
+            বোঝা গুরুত্বপূর্ণ, কারণ পেশাদার দর্শনার্থী নির্দেশিকার কাজ শুধু সুন্দর দিক দেখানো নয়—জনপরিসরের ব্যবহার ও
+            সীমাবদ্ধতাও নিরপেক্ষভাবে জানানো।
+          </p>
+          <p class="photo-credit" style="position:static; margin-top:1rem;">
+            অনুষ্ঠানচিত্র: {photos.event.credit} · {photos.event.license} · <a href={photos.event.source} rel="noreferrer">উৎস</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ভ্রমণ-পরিকল্পনা">
+    <div class="shell">
+      <p class="eyebrow">ভ্রমণ পরিকল্পনা</p>
+      <h2 class="section-title">সময়, খরচ, ভিড় ও আবহাওয়া—যাওয়ার আগে যা জানা দরকার</h2>
+      <p class="section-lead">
+        এটি প্রচলিত গেট-টিকিটভিত্তিক পর্যটনকেন্দ্র নয়। জনপরিসরের নিয়ম, অনুষ্ঠান, আবহাওয়া ও ভিড়ের কারণে অভিজ্ঞতা দিনে
+        দিনে বদলাতে পারে। তাই নিচের তথ্যকে পরিকল্পনার ভিত্তি হিসেবে নিন, চূড়ান্ত নিশ্চয়তা হিসেবে নয়।
+      </p>
+
+      <div class="plan-grid">
+        <article class="plan-card">
+          <span class="num">১</span>
+          <h3>সেরা সময়</h3>
+          <p>শান্ত পরিবেশের জন্য সকাল; নরম আলো ও সামাজিক আবহের জন্য বিকেল থেকে সূর্যাস্ত। শুক্রবার, ছুটির দিন ও বড় অনুষ্ঠানে ভিড় বেশি হতে পারে।</p>
+        </article>
+        <article class="plan-card">
+          <span class="num">২</span>
+          <h3>প্রস্তাবিত অবস্থানকাল</h3>
+          <p>সংক্ষিপ্ত দেখায় প্রায় এক ঘণ্টা। লেকপাড় হাঁটা, বসা, আলোকচিত্র বা অনুষ্ঠান থাকলে দুই থেকে তিন ঘণ্টা রাখলে তাড়াহুড়া কম হয়।</p>
+        </article>
+        <article class="plan-card">
+          <span class="num">৩</span>
+          <h3>টিকিট ও খরচ</h3>
+          <p>সাধারণ জনপরিসরে প্রবেশ সাধারণত বিনামূল্যে। বিশেষ অনুষ্ঠান, নৌভ্রমণ, খাবার বা অন্যান্য ঐচ্ছিক সেবার আলাদা মূল্য থাকতে পারে—নির্দিষ্ট অঙ্ক স্থায়ী ধরে নেওয়া ঠিক নয়।</p>
+        </article>
+        <article class="plan-card">
+          <span class="num">৪</span>
+          <h3>বর্ষা ও সন্ধ্যার প্রস্তুতি</h3>
+          <p>বৃষ্টিতে কিছু অংশ পিচ্ছিল বা জলাবদ্ধ হতে পারে। সন্ধ্যায় মশা বাড়তে পারে; পোকামাকড় প্রতিরোধক ও আরামদায়ক জুতা কাজে দেয়।</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section info-band" id="সুবিধা">
+    <div class="shell">
+      <p class="eyebrow">দর্শনার্থী সুবিধা</p>
+      <h2 class="section-title">টয়লেট থেকে পার্কিং—ব্যবহারিক প্রয়োজনের নিরপেক্ষ চিত্র</h2>
+      <p class="section-lead">
+        কোনো নির্দিষ্ট দোকান, হোটেল, খাবারের প্রতিষ্ঠান বা পরিবহন অপারেটরকে আমরা সুপারিশ করি না। নিচে শুধু প্রয়োজনীয়
+        সেবার ধরন ও বাস্তব ব্যবহার সম্পর্কে ধারণা দেওয়া হয়েছে।
+      </p>
+      <div class="info-list">
+        <article class="info-item"><h3>পাবলিক টয়লেট</h3><p>লেক এলাকার এই সেক্টরে জনসাধারণের টয়লেট থাকার তথ্য প্রকাশিত হয়েছে। পরিচ্ছন্নতা, প্রবেশ ও সময় পরিবর্তনশীল—পৌঁছে স্থানীয় নির্দেশনা দেখুন।</p></article>
+        <article class="info-item"><h3>পার্কিং</h3><p>সীমিত পার্কিং ও রাস্তার আশপাশে যানবাহন রাখার ব্যবস্থা থাকতে পারে। অনুষ্ঠান বা ছুটির বিকেলে জায়গা দ্রুত পূর্ণ হয়; গণপরিবহন বা নামিয়ে দেওয়ার পরিকল্পনা বেশি নির্ভরযোগ্য।</p></article>
+        <article class="info-item"><h3>খাবার ও পানীয়</h3><p>লেকপাড়ে হালকা নাশতা, চা-কফি, স্থানীয় খাবার ও বসে খাওয়ার ধরনের সেবা পাওয়া যায়। স্বাস্থ্যবিধি, মূল্য ও অ্যালার্জি নিজের প্রয়োজন অনুযায়ী যাচাই করুন।</p></article>
+        <article class="info-item"><h3>আবাসন</h3><p>ধানমন্ডি, পান্থপথ ও আশপাশে বিভিন্ন মানের হোটেল, অতিথিশালা ও সার্ভিসড থাকার ব্যবস্থা আছে। নিরাপত্তা, লাইসেন্স, বাতিল নীতি ও যাতায়াতের সুবিধা দেখে নির্বাচন করুন।</p></article>
+        <article class="info-item"><h3>মুদি ও সুপারমার্কেট</h3><p>ধানমন্ডি আবাসিক এলাকায় মুদি, ফার্মেসি, ছোট বাজার ও সুপারমার্কেট ধরনের সুবিধা সহজে মেলে। নির্দিষ্ট ব্র্যান্ডের বদলে প্রয়োজন ও দূরত্ব অনুযায়ী কাছের বিকল্প বেছে নিন।</p></article>
+        <article class="info-item"><h3>জ্বালানি ও চার্জিং</h3><p>প্রধান সড়কগুলোতে প্রচলিত জ্বালানি স্টেশন আছে; বৈদ্যুতিক গাড়ির চার্জিং এখনও তুলনামূলক কম এবং স্থানের কার্যকারিতা বদলাতে পারে। যাত্রার আগে নিজের যানবাহনের মানচিত্রসেবা দিয়ে যাচাই করুন।</p></article>
+        <article class="info-item"><h3>বসার জায়গা</h3><p>অ্যাম্ফিথিয়েটারের ধাপই প্রধান বসার জায়গা। ভেজা আবহাওয়া বা অনুষ্ঠানের সেটআপে কিছু অংশ ব্যবহারযোগ্য নাও থাকতে পারে।</p></article>
+        <article class="info-item"><h3>পানীয় জল</h3><p>নির্ভরযোগ্য উন্মুক্ত পানির পয়েন্ট সবসময় নিশ্চিত নয়। নিজের পুনর্ব্যবহারযোগ্য পানির বোতল আনা সুবিধাজনক; আবর্জনা সঙ্গে করে নির্ধারিত স্থানে ফেলুন।</p></article>
+        <article class="info-item"><h3>প্রাথমিক সহায়তা</h3><p>স্থায়ী চিকিৎসা বুথের উপস্থিতি নিশ্চিত নয়। জরুরি পরিস্থিতিতে জাতীয় জরুরি সেবা ও নিকটবর্তী হাসপাতাল/ক্লিনিক ধরনের চিকিৎসা সুবিধার সাহায্য নিন।</p></article>
+        <article class="info-item"><h3>প্রবেশগম্যতা</h3><p>লেকপাড়ে কিছু সমতল অংশ থাকলেও মঞ্চের ধাপ, অসম পৃষ্ঠ ও ভিড় চলাচলে প্রতিবন্ধকতা তৈরি করতে পারে। হুইলচেয়ার বা সীমিত চলাচলের দর্শনার্থী হলে আগে প্রবেশপথ দেখে নেওয়া এবং সহায়তাকারী সঙ্গে রাখা ব্যবহারিক।</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="যাতায়াত">
+    <div class="shell transport-layout">
+      <div class="transport-intro">
+        <p class="eyebrow">বিস্তারিত যাতায়াত</p>
+        <h2 class="section-title">ঢাকার ভিড় মাথায় রেখে পথ বেছে নিন</h2>
+        <p class="section-lead">
+          রাস্তার সময় ঢাকার যানজটের ওপর ব্যাপকভাবে নির্ভরশীল। তাই নির্দিষ্ট মিনিটের প্রতিশ্রুতির বদলে আমরা ব্যবহারিক
+          রুটের ধরন দিয়েছি। লাইভ ট্রাফিক দেখে বের হওয়া সবচেয়ে কার্যকর।
+        </p>
+      </div>
+      <div class="route-list">
+        <article class="route">
+          <div class="route-icon" aria-hidden="true">✈</div>
+          <div><h3>হযরত শাহজালাল আন্তর্জাতিক বিমানবন্দর থেকে</h3><p>ট্যাক্সি বা অ্যাপভিত্তিক গাড়িতে বিমানবন্দর সড়ক থেকে ফার্মগেট/কারওয়ান বাজার হয়ে ধানমন্ডির দিকে আসা যায়। গন্তব্য হিসেবে “রবীন্দ্র সরোবর, ধানমন্ডি লেক” দেখালে চালকের জন্য স্পষ্ট হয়।</p><small>ব্যস্ত সময়ে সময় অনেক বেড়ে যেতে পারে; ফ্লাইটের দিন ফিরতি পথে অতিরিক্ত সময় রাখুন।</small></div>
+        </article>
+        <article class="route">
+          <div class="route-icon" aria-hidden="true">▣</div>
+          <div><h3>নগর বাসে</h3><p>মিরপুর রোড ও ধানমন্ডির প্রধান করিডরে চলা বাসে কলাবাগান, সায়েন্স ল্যাব বা জিগাতলা এলাকার সুবিধাজনক স্টপে নেমে রিকশা বা হাঁটায় পৌঁছানো যায়। রুট নম্বর ও স্টপ পরিবর্তিত হতে পারে।</p><small>বাসে ওঠার আগে সহকারী বা স্টপের তথ্যফলকে গন্তব্য নিশ্চিত করুন; নির্দিষ্ট অপারেটরকে আমরা সুপারিশ করি না।</small></div>
+        </article>
+        <article class="route">
+          <div class="route-icon" aria-hidden="true">◉</div>
+          <div><h3>মেট্রো ও পরবর্তী সংযোগ</h3><p>মেট্রোরেল সরাসরি রবীন্দ্র সরোবর পর্যন্ত যায় না। ফার্মগেট বা শাহবাগের মতো সুবিধাজনক স্টেশন থেকে সড়কপথে ট্যাক্সি, সিএনজি বা রিকশায় ধানমন্ডি আসা যায়।</p><small>যে স্টেশন থেকে বের হচ্ছেন, সেখানকার বাস্তব ট্রাফিক দেখে পরবর্তী বাহন ঠিক করুন।</small></div>
+        </article>
+        <article class="route">
+          <div class="route-icon" aria-hidden="true">⌁</div>
+          <div><h3>ট্যাক্সি, সিএনজি ও রাইড-শেয়ার</h3><p>ঢাকার অধিকাংশ এলাকা থেকে সরাসরি নামিয়ে দেওয়ার জন্য সবচেয়ে সহজ পদ্ধতি। পিকআপ/ড্রপের সময় লেক রোডে ভিড় হলে কিছুটা আগে নেমে হাঁটা দ্রুত হতে পারে।</p><small>মিটার, অ্যাপের ভাড়া বা সম্মত ভাড়া যাত্রার আগে নিশ্চিত করুন।</small></div>
+        </article>
+        <article class="route">
+          <div class="route-icon" aria-hidden="true">◎</div>
+          <div><h3>রিকশা ও হাঁটা</h3><p>ধানমন্ডি, কলাবাগান, জিগাতলা বা নিকটবর্তী এলাকা থেকে স্বল্প দূরত্বে রিকশা ব্যবহারিক। লেকের ধার ধরে হাঁটার অংশ সুন্দর হলেও রাতে নির্জন বা কম আলোকিত অংশ এড়িয়ে চলুন।</p><small>ফুটপাতের অবস্থা সমান নয়; বয়স্ক বা চলাচলে সীমাবদ্ধ দর্শনার্থীর জন্য দরজা-সংলগ্ন নামিয়ে দেওয়া সুবিধাজনক।</small></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-section" id="মানচিত্র">
+    <div class="shell map-card">
+      <div class="map-copy">
+        <p class="eyebrow">অবস্থান</p>
+        <h2 class="section-title">ধানমন্ডি লেকের ৮ নম্বর এলাকার জলধারে</h2>
+        <p>মানচিত্রে প্রদর্শিত স্থানাঙ্ক: {latitudeBn}, {longitudeBn}। এমবেড করা মানচিত্রের ভাষা ও অঞ্চল বাংলাদেশি বাংলা হিসেবে সেট করা হয়েছে।</p>
+        <div class="address-chip"><strong>ঠিকানা</strong><br />{attraction.address}</div>
+      </div>
+      <div class="map-frame">
+        <iframe
+          src={attraction.mapEmbed}
+          title="রবীন্দ্র সরোবর, ধানমন্ডি — গুগল মানচিত্র"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" id="আশপাশ">
+    <div class="shell">
+      <p class="eyebrow">আশপাশে কী দেখবেন</p>
+      <h2 class="section-title">একই ভ্রমণে ঢাকার আরও কিছু জনপরিসর ও সাংস্কৃতিক অঞ্চল</h2>
+      <p class="section-lead">এগুলো বাণিজ্যিক সুপারিশ নয়; অবস্থান ও জনপরিসরের চরিত্রের ভিত্তিতে সম্ভাব্য পরবর্তী গন্তব্যের ধরন। খোলার সময় ও প্রবেশনীতি আলাদাভাবে যাচাই করুন।</p>
+      <div class="nearby-grid mt-8 md:mt-10">
+        <article class="nearby-card"><span class="tag">হাঁটাপথ</span><h3>ধানমন্ডি লেকের অন্যান্য অংশ</h3><p>সেতু, বৃক্ষঘেরা হাঁটার পথ ও জলদৃশ্য ধরে একই লেকের ভিন্ন পরিবেশ দেখা যায়। সকালে দীর্ঘ হাঁটার সঙ্গে মিলিয়ে নেওয়া যায়।</p></article>
+        <article class="nearby-card"><span class="tag">নগর সংস্কৃতি</span><h3>শাহবাগ–চারুকলা সাংস্কৃতিক এলাকা</h3><p>বিশ্ববিদ্যালয়, শিল্পচর্চা, উদ্যান ও জাদুঘরকেন্দ্রিক ঢাকার গুরুত্বপূর্ণ সাংস্কৃতিক অঞ্চল; সড়কপথে সংক্ষিপ্ত যাত্রায় পৌঁছানো যায়।</p></article>
+        <article class="nearby-card"><span class="tag">স্থাপত্য</span><h3>জাতীয় সংসদ ভবনের নগরদৃশ্য</h3><p>ঢাকার আধুনিক স্থাপত্য ও পরিকল্পিত উন্মুক্ত পরিসর বোঝার জন্য বাইরের জনসাধারণের অনুমোদিত অংশ থেকে দেখা যায়; নিরাপত্তা সীমা সম্মান করুন।</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="খাবার">
+    <div class="shell grid-2">
+      <div>
+        <p class="eyebrow">আশপাশের খাবার</p>
+        <h2 class="section-title">নির্দিষ্ট দোকান নয়—কী ধরনের খাবার পাওয়া যায়</h2>
+        <p class="section-lead">অলাভজনক নির্দেশিকা হিসেবে আমরা কোনো ব্যবসা, ব্র্যান্ড বা রেস্তোরাঁকে অগ্রাধিকার দিই না। ধানমন্ডি এলাকায় সাধারণত যে ধরনের বিকল্প পাওয়া যায়:</p>
+        <div class="info-list" style="grid-template-columns:1fr 1fr; margin-top:1.7rem;">
+          <article class="info-item"><h3>রাস্তার হালকা নাশতা</h3><p>ফুচকা, চটপটি, ঝালমুড়ি, চা ও ছোট নাশতার ধরন। পরিচ্ছন্নতা ও পানির উৎস দেখুন।</p></article>
+          <article class="info-item"><h3>বাংলা খাবার</h3><p>ভাত, তরকারি, মাছ-মাংস, ভর্তা ও স্থানীয় রান্নার সাধারণ বিকল্প। অ্যালার্জি বা খাদ্যাভ্যাস আগে জানান।</p></article>
+          <article class="info-item"><h3>ক্যাফে ও বেকারি</h3><p>কফি, হালকা খাবার, পেস্ট্রি ও বসে বিশ্রামের ধরন; লেকপাড়ের ভিড় এড়াতে মূল সড়কের বিকল্প দেখা যায়।</p></article>
+          <article class="info-item"><h3>প্যাকেটজাত ও জরুরি খাবার</h3><p>মুদি ও সুপারমার্কেট ধরনের দোকানে পানি, শুকনো খাবার ও ভ্রমণ-প্রয়োজনীয় সামগ্রী পাওয়া যায়।</p></article>
+        </div>
+      </div>
+      <figure class="photo-frame" style="min-height:560px; border-radius:90px 34px 34px 34px;">
+        <img src={photos.lake.src} alt={photos.lake.alt} width="3072" height="4080" loading="lazy" style="object-position:center 52%;" />
+        <figcaption class="photo-credit">ছবি: {photos.lake.credit} · <a href={photos.lake.licenseUrl} rel="noreferrer">{photos.lake.license}</a> · <a href={photos.lake.source} rel="noreferrer">উৎস</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section-tight" id="দায়িত্বশীল-ভ্রমণ">
+    <div class="shell">
+      <p class="eyebrow">দায়িত্বশীল ব্যবহার</p>
+      <h2 class="section-title">জনপরিসরকে দর্শনীয় স্থান নয়, ভাগ করা সম্পদ হিসেবে ব্যবহার করুন</h2>
+      <div class="grid-3" style="margin-top:2.2rem;">
+        <article class="intro-card"><h3>শব্দ ও অনুষ্ঠান</h3><p>অনুষ্ঠান চললে আয়োজকের নিয়ন্ত্রণ, বসার পথ ও জরুরি বের হওয়ার জায়গা খালি রাখুন। ব্যক্তিগত স্পিকার দিয়ে অন্যদের বিরক্ত করবেন না।</p></article>
+        <article class="intro-card"><h3>লেক ও আবর্জনা</h3><p>প্লাস্টিক, খাবারের প্যাকেট বা সিগারেটের অবশিষ্ট জল বা গাছপালায় ফেলবেন না। নির্ধারিত বিন না পেলে নিজের সঙ্গে ফিরিয়ে নিন।</p></article>
+        <article class="intro-card"><h3>মানুষের গোপনীয়তা</h3><p>শিশু, পরিবার, শিল্পী বা ব্যক্তিগত মুহূর্তের ছবি নিলে সম্মতি ও সম্মান বজায় রাখুন। জনপরিসর মানেই সীমাহীন চিত্রগ্রহণের অধিকার নয়।</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="সাধারণ-জিজ্ঞাসা">
+    <div class="shell">
+      <p class="eyebrow" style="text-align:center;">সাধারণ জিজ্ঞাসা</p>
+      <h2 class="section-title" style="margin-inline:auto; text-align:center;">যাওয়ার আগে ছোট কিন্তু গুরুত্বপূর্ণ উত্তর</h2>
+      <div class="faq-wrap">
+        {faqs.map((item) => (
+          <details class="faq">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <aside class="source-panel" aria-labelledby="উৎস-শিরোনাম">
+        <h3 id="উৎস-শিরোনাম">তথ্যসূত্র ও যাচাই-পদ্ধতি</h3>
+        <p>কোনো একক উৎসকে চূড়ান্ত ধরে নেওয়া হয়নি। সরকারি সংস্থা, মানচিত্র তালিকা, সংবাদ প্রতিবেদন ও মুক্ত লাইসেন্সের আলোকচিত্র—একাধিক সূত্র মিলিয়ে বিষয়বস্তু তৈরি করা হয়েছে। সময়সংবেদনশীল তথ্য ভ্রমণের আগে আবার যাচাই করুন।</p>
+        <ul>
+          <li><a href="https://dscc.gov.bd/" rel="noreferrer">ঢাকা দক্ষিণ সিটি কর্পোরেশন — নগর সেবা ও স্থানীয় কর্তৃপক্ষ</a></li>
+          <li><a href="https://tourismboard.gov.bd/" rel="noreferrer">বাংলাদেশ ট্যুরিজম বোর্ড — জাতীয় পর্যটন তথ্য</a></li>
+          <li><a href="https://www.tbsnews.net/features/panorama/unfulfilled-promise-dhakas-open-air-theatres-1372181" rel="noreferrer">প্রকাশিত প্রতিবেদন — ঢাকার উন্মুক্ত মঞ্চ ও রবীন্দ্র সরোবরের সাম্প্রতিক প্রেক্ষিত</a></li>
+          <li><a href="https://www.tbsnews.net/bangladesh/infrastructure/tk75cr-makeover-planned-bring-dhanmondi-lake-back-life-1523076" rel="noreferrer">সাম্প্রতিক প্রতিবেদন — ধানমন্ডি লেকের পরিকল্পিত অবকাঠামো উন্নয়ন ও রক্ষণাবেক্ষণ</a></li>
+          <li><a href="https://commons.wikimedia.org/wiki/Category:Rabindra_Sarobar,_Dhaka" rel="noreferrer">উইকিমিডিয়া কমন্স — স্থান-নির্দিষ্ট মুক্ত আলোকচিত্র ও লাইসেন্স</a></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

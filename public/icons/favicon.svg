@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="রবীন্দ্র সরোবর প্রতীক">
+  <rect width="64" height="64" rx="16" fill="#f3c46f"/>
+  <circle cx="46" cy="16" r="5" fill="#a74e3c"/>
+  <path d="M11 34h42M16 34V23m10 11V21m12 13V21m10 13V23" fill="none" stroke="#173a34" stroke-width="4" stroke-linecap="round"/>
+  <path d="M10 45c8-5 15-5 22 0s13 5 23 0" fill="none" stroke="#245e51" stroke-width="4" stroke-linecap="round"/>
+  <path d="M15 53c6-3 12-3 18 0s11 3 17 0" fill="none" stroke="#245e51" stroke-width="3" stroke-linecap="round"/>
+</svg>

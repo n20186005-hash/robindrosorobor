@@ -1,0 +1,150 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  imagePath?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+  pageClass?: string;
+}
+
+const {
+  title,
+  description,
+  imagePath = '/icons/logo.svg',
+  structuredData,
+  pageClass = '',
+} = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const ogImage = Astro.site ? new URL(imagePath, Astro.site).toString() : undefined;
+const jsonLd = structuredData
+  ? Array.isArray(structuredData)
+    ? structuredData
+    : [structuredData]
+  : [];
+---
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#173a34" />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="bn_BD" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd.map((entry) => (
+      <script type="application/ld+json" set:html={JSON.stringify(entry)} />
+    ))}
+    <script is:inline>
+      (() => {
+        const key = 'রবীন্দ্র-সরোবর-কুকি-পছন্দ';
+        let loaded = false;
+        const readPreference = () => {
+          try {
+            return JSON.parse(localStorage.getItem(key) || '{}');
+          } catch {
+            return {};
+          }
+        };
+        const loadAnalytics = () => {
+          if (loaded || !readPreference().analytics) return;
+          loaded = true;
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
+          document.head.appendChild(script);
+        };
+        loadAnalytics();
+        window.addEventListener('কুকি-পছন্দ-বদলেছে', loadAnalytics);
+      })();
+    </script>
+  </head>
+  <body class={pageClass}>
+    <a class="skip-link" href="#মূল-কনটেন্ট">মূল কনটেন্টে যান</a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="/" aria-label="রবীন্দ্র সরোবর পর্যটক নির্দেশিকা — প্রথম পাতা">
+          <img src="/icons/logo.svg" alt="" width="54" height="54" />
+          <span>
+            <strong>রবীন্দ্র সরোবর</strong>
+            <small>ধানমন্ডি · ঢাকা</small>
+          </span>
+        </a>
+        <nav class="desktop-nav" aria-label="প্রধান নেভিগেশন">
+          <a href="/#পরিচিতি">পরিচিতি</a>
+          <a href="/#ইতিহাস">ইতিহাস</a>
+          <a href="/#ভ্রমণ-পরিকল্পনা">ভ্রমণ পরিকল্পনা</a>
+          <a href="/#যাতায়াত">যাতায়াত</a>
+          <a href="/#সাধারণ-জিজ্ঞাসা">সাধারণ জিজ্ঞাসা</a>
+        </nav>
+        <details class="mobile-menu">
+          <summary aria-label="নেভিগেশন খুলুন">মেনু</summary>
+          <nav aria-label="মোবাইল নেভিগেশন">
+            <a href="/#পরিচিতি">পরিচিতি</a>
+            <a href="/#ইতিহাস">ইতিহাস</a>
+            <a href="/#ভ্রমণ-পরিকল্পনা">ভ্রমণ পরিকল্পনা</a>
+            <a href="/#যাতায়াত">যাতায়াত</a>
+            <a href="/#সাধারণ-জিজ্ঞাসা">সাধারণ জিজ্ঞাসা</a>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="মূল-কনটেন্ট">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div class="footer-brand">
+          <img src="/icons/logo.svg" alt="" width="64" height="64" />
+          <div>
+            <strong>রবীন্দ্র সরোবর পর্যটক নির্দেশিকা</strong>
+            <p>ঢাকার একটি জনপরিসরকে ইতিহাস, সংস্কৃতি, যাতায়াত ও দায়িত্বশীল ভ্রমণের দৃষ্টিতে বুঝতে সহায়তা করা আমাদের উদ্দেশ্য।</p>
+          </div>
+        </div>
+        <div>
+          <h2>আইনি তথ্য</h2>
+          <ul>
+            <li><a href="/privacy/">গোপনীয়তা নীতি</a></li>
+            <li><a href="/terms/">সেবার শর্তাবলি</a></li>
+            <li><a href="/cookies/">কুকি সেটিংস</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>তথ্যের ভিত্তি</h2>
+          <ul>
+            <li><a href="https://dscc.gov.bd/" rel="noreferrer">ঢাকা দক্ষিণ সিটি কর্পোরেশন</a></li>
+            <li><a href="https://tourismboard.gov.bd/" rel="noreferrer">বাংলাদেশ ট্যুরিজম বোর্ড</a></li>
+            <li><a href="https://parjatan.gov.bd/" rel="noreferrer">বাংলাদেশ পর্যটন করপোরেশন</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="shell footer-notice">
+        <p>এই ওয়েবসাইট একটি স্বাধীন, অলাভজনক দর্শনার্থী তথ্য নির্দেশিকা প্রকল্প; কোনো সরকারি প্রতিষ্ঠান বা দাপ্তরিক সংগঠনের সঙ্গে এর সাংগঠনিক সম্পর্ক নেই।</p>
+        <p>এখানকার স্থান-সংক্রান্ত তথ্য ঢাকা দক্ষিণ সিটি কর্পোরেশন, বাংলাদেশ ট্যুরিজম বোর্ড, বাংলাদেশ পর্যটন করপোরেশন এবং উন্মুক্ত নির্ভরযোগ্য উৎসের তথ্য মিলিয়ে উপস্থাপন করা হয়েছে; এতে কোনো বাণিজ্যিক প্রতিষ্ঠানকে সুপারিশ করা হয়নি।</p>
+        <p>ছবির স্বত্ব: এই ওয়েবসাইটে প্রদর্শিত ছবির স্বত্ব ও প্রযোজ্য লাইসেন্স মূল আলোকচিত্রী বা উৎস প্রতিষ্ঠানের অধীনে থাকে; প্রতিটি ছবির কৃতিত্ব সংশ্লিষ্ট অংশে দেওয়া হয়েছে।</p>
+        <p>© ২০২৬ রবীন্দ্র সরোবর পর্যটক নির্দেশিকা। সর্বস্বত্ব সংরক্ষিত।</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="রবীন্দ্র সরোবরের লেক ও উন্মুক্ত মঞ্চ থেকে অনুপ্রাণিত প্রতীক">
+  <rect width="128" height="128" rx="34" fill="#f3c46f"/>
+  <circle cx="92" cy="34" r="10" fill="#a74e3c"/>
+  <path d="M22 68h84" fill="none" stroke="#173a34" stroke-width="7" stroke-linecap="round"/>
+  <path d="M29 68V47m17 21V43m18 25V41m18 27V43m17 25V47" fill="none" stroke="#173a34" stroke-width="6" stroke-linecap="round"/>
+  <path d="M18 84c14-8 27-8 41 0s27 8 51 0" fill="none" stroke="#245e51" stroke-width="7" stroke-linecap="round"/>
+  <path d="M25 100c11-6 22-6 34 0s25 6 44 0" fill="none" stroke="#245e51" stroke-width="5" stroke-linecap="round" opacity=".86"/>
+</svg>

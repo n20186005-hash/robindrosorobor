@@ -1,0 +1,2 @@
+CI=1 corepack pnpm install --frozen-lockfile
+Result: blocked before dependency resolution because this sandbox cannot resolve registry.npmjs.org (EAI_AGAIN).
