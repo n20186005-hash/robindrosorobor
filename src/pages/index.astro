@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { attraction, photos, faqs } from '../data/site';
+import WeatherSection from '../components/WeatherSection.astro';
+import { attraction, photos, faqs, seo, SITE_NAME, seasonal, itineraries, routes } from '../data/site';
 
 const ownUrl = Astro.site ? new URL('/', Astro.site).toString() : undefined;
 const latitudeBn = attraction.latitude.toLocaleString('bn-BD', { minimumFractionDigits: 6, maximumFractionDigits: 6 });
@@ -8,15 +9,25 @@ const longitudeBn = attraction.longitude.toLocaleString('bn-BD', { minimumFracti
 
 const attractionSchema = {
   '@context': 'https://schema.org',
-  '@type': 'TouristAttraction',
+  '@type': ['TouristAttraction', 'Amphitheatre'],
+  '@id': ownUrl ? `${ownUrl}#attraction` : undefined,
   name: attraction.name,
-  description: 'ধানমন্ডি লেকের পাশে অবস্থিত উন্মুক্ত সাংস্কৃতিক মঞ্চ ও নগর জনপরিসর।',
+  alternateName: [
+    seo.attractionFullNameEn,
+    `${seo.attractionFullNameEn}, ${seo.cityEn}`,
+    'রবীন্দ্র সরোবর মুক্তমঞ্চ',
+    'রবীন্দ্র সরোবর অ্যাম্ফিথিয়েটার',
+  ],
+  description:
+    'রবীন্দ্র সরোবর (Robindro Sorobor) — ঢাকার ধানমন্ডি লেকের পাশে অবস্থিত উন্মুক্ত সাংস্কৃতিক মঞ্চ ও নগর জনপরিসরের বিস্তারিত দর্শনার্থী নির্দেশিকা।',
   ...(ownUrl ? { url: ownUrl } : {}),
-  image: [photos.hero.src, photos.stage.src, photos.event.src],
+  image: [photos.hero.src, photos.stage.src, photos.lake.src, photos.event.src],
+  isAccessibleForFree: true,
   address: {
     '@type': 'PostalAddress',
     streetAddress: '৮ নম্বর, ধানমন্ডি লেক রোড',
     addressLocality: 'ঢাকা',
+    addressRegion: 'ঢাকা',
     postalCode: '১২০৫',
     addressCountry: 'BD',
   },
@@ -25,6 +36,8 @@ const attractionSchema = {
     latitude: attraction.latitude,
     longitude: attraction.longitude,
   },
+  hasMap: seo.mapsShareUrl,
+  sameAs: [seo.mapsShareUrl, seo.govtTourismUrl, seo.wikimediaCategory],
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
@@ -36,9 +49,9 @@ const attractionSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: attraction.rating,
+    reviewCount: attraction.ratingCount,
     bestRating: 5,
   },
-  isAccessibleForFree: true,
 };
 
 const faqSchema = {
@@ -55,9 +68,10 @@ const faqSchema = {
 };
 ---
 <BaseLayout
-  title="রবীন্দ্র সরোবর, ধানমন্ডি — ইতিহাস, যাতায়াত ও দর্শনার্থী নির্দেশিকা"
-  description="ঢাকার ধানমন্ডি লেকের রবীন্দ্র সরোবর সম্পর্কে ইতিহাস, উন্মুক্ত মঞ্চ, যাতায়াত, প্রবেশমূল্য, পার্কিং, সুবিধা, ভ্রমণের সময় ও সাধারণ জিজ্ঞাসার স্বাধীন অলাভজনক বাংলা নির্দেশিকা।"
-  imagePath="/icons/logo.svg"
+  title={`রবীন্দ্র সরোবর (Robindro Sorobor) ধানমন্ডি, ঢাকা — পর্যটক নির্দেশিকা`}
+  description="রবীন্দ্র সরোবর (Robindro Sorobor) ঢাকার ধানমন্ডি লেক রোড ৮ নম্বরে—কীভাবে যাবেন, কখন যাবেন, উন্মুক্ত মঞ্চ, ইতিহাস, যাতায়াত, পার্কিং ও সাধারণ জিজ্ঞাসা নিয়ে স্বাধীন বাংলা দর্শনার্থী নির্দেশিকা।"
+  imagePath={photos.hero.src}
+  imageAlt="রবীন্দ্র সরোবর (Robindro Sorobor) — ধানমন্ডি লেকের উন্মুক্ত মঞ্চ, ঢাকা"
   structuredData={[attractionSchema, faqSchema]}
 >
   <section class="hero" aria-labelledby="hero-title">
@@ -97,6 +111,11 @@ const faqSchema = {
           রবীন্দ্র সরোবর ধানমন্ডি লেকের পাশে নির্মিত ধাপভিত্তিক উন্মুক্ত অ্যাম্ফিথিয়েটার। আনুষ্ঠানিক অনুষ্ঠান না থাকলেও
           এখানে মানুষ বসে, হাঁটে, গল্প করে, অনুশীলন করে বা শুধু লেকের বাতাস নেয়। তাই এটিকে শুধু “দর্শনীয় স্থান” হিসেবে
           নয়, বরং ঢাকার একটি জীবন্ত নাগরিক পরিসর হিসেবে দেখলে জায়গাটির চরিত্র সবচেয়ে ভালো বোঝা যায়।
+        </p>
+        <p>
+          ইংরেজি বা রোমানিকৃত নামে এটি <strong>Robindro Sorobor, Dhaka</strong> হিসেবেও পরিচিত—ডোমেইন
+          <strong>robindrosorobor.com</strong>-এর অর্থও এই একই সত্তা (রবীন্দ্র সরোবর) নির্দেশ করে। সুতরাং সন্ধানী
+          বা মানচিত্রে “Robindro Sorobor” লিখলেও এখানেই আসে।
         </p>
         <p>
           উন্মুক্ত সূত্রে এটি রবীন্দ্র সরোবর, রবীন্দ্র সরোবর মুক্তমঞ্চ ও রবীন্দ্র সরোবর অ্যাম্ফিথিয়েটার—এই কয়েক নামে
@@ -150,6 +169,16 @@ const faqSchema = {
         <strong>সাম্প্রতিক অবকাঠামো প্রেক্ষিত</strong>
         <p>
           ধানমন্ডি লেকের হাঁটার পথ, আলোকসজ্জা, রেলিং, পানি নিষ্কাশন ও জনসুবিধা উন্নয়নের নতুন পরিকল্পনা নিয়ে সাম্প্রতিক সময়ে আলোচনা হয়েছে। পরিকল্পনা বাস্তবায়নের পর্যায়ে কোনো অংশ সাময়িকভাবে ঘেরা, পথ পরিবর্তিত বা কম ব্যবহারযোগ্য হতে পারে। তাই ভ্রমণের দিন স্থানীয় নির্দেশনা ও কর্তৃপক্ষের নোটিশকে অগ্রাধিকার দিন।
+        </p>
+      </aside>
+
+      <aside class="update-note" aria-label="সাংস্কৃতিক ভূমিকা">
+        <strong>সাংস্কৃতিক ভূমিকা ও নামের তাৎপর্য</strong>
+        <p>
+          “রবীন্দ্র” রবীন্দ্রনাথ ঠাকুরের (১৮৬১–১৯৪১) সংক্ষিপ্ত রূপ—তিনি সাহিত্যে নোবেল পুরস্কার পাওয়া প্রথম এশীয়, যাঁর গান, কবিতা ও নাটক বাংলা সংস্কৃতির মূল স্রোতে জায়গা করে নিয়েছে। একটি উন্মুক্ত মঞ্চ তাঁর নামে নামকরণ করায় ঢাকার নাগরিক জীবনে সংস্কৃতি ও স্মৃতির সংযোগ দেখা যায়।
+        </p>
+        <p>
+          বৈশাখী বা শীতকালীন সাংস্কৃতিক আয়োজন, থিয়েটার ও কবিতার সমাবেশে মঞ্চটি বিশেষভাবে সরব থাকে। তবে নামের আনুষ্ঠানিক উৎস নিয়ে স্পষ্ট সরকারি নথি সহজলভ্য নয়—তাই এটিকে জনপ্রিয় কাহিনি হিসেবে নয়, সাংস্কৃতিক প্রেক্ষিত হিসেবে তুলে ধরা হয়েছে।
         </p>
       </aside>
 
@@ -209,6 +238,35 @@ const faqSchema = {
     </div>
   </section>
 
+  <section class="section" id="ঋতু-কৌশল">
+    <div class="shell">
+      <p class="eyebrow">ঋতুভিত্তিক ভ্রমণ কৌশল</p>
+      <h2 class="section-title">কখন যাবেন—আবহাওয়া, লেক ও প্রকৃতির ওপর ভিত্তি করে</h2>
+      <p class="section-lead">
+        নিচের বিবরণ বাংলাদেশ আবহাওয়া অধিদপ্তরের দীর্ঘমেয়াদি জলবায়ু পর্যবেক্ষণ ও ঢাকার সাধারণ ঋতুচক্রের সাধারণ ধারণার ওপর ভিত্তি করে।
+        এগুলো বিজ্ঞানভিত্তিক সাধারণ নির্দেশিকা; নির্দিষ্ট পরিসংখ্যান হিসেবে নয়। বাস্তব আবহাওয়া দিনে দিনে বদলাতে পারে, তাই ভ্রমণের দিন আবহাওয়ার তথ্য আবার দেখুন।
+      </p>
+      <div class="season-table" role="table" aria-label="ঋতুভিত্তিক ভ্রমণ কৌশল">
+        <div class="season-row season-head" role="row">
+          <span role="columnheader">ঋতু</span>
+          <span role="columnheader">আবহাওয়া</span>
+          <span role="columnheader">লেক ও জলবিজ্ঞান</span>
+          <span role="columnheader">প্রকৃতি ও পাখি</span>
+          <span role="columnheader">পরামর্শ</span>
+        </div>
+        {seasonal.map((s) => (
+          <div class="season-row" role="row">
+            <span role="cell" class="season-name">{s.season}</span>
+            <span role="cell">{s.weather}</span>
+            <span role="cell">{s.water}</span>
+            <span role="cell">{s.wildlife}</span>
+            <span role="cell">{s.advice}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="section info-band" id="সুবিধা">
     <div class="shell">
       <p class="eyebrow">দর্শনার্থী সুবিধা</p>
@@ -224,6 +282,7 @@ const faqSchema = {
         <article class="info-item"><h3>আবাসন</h3><p>ধানমন্ডি, পান্থপথ ও আশপাশে বিভিন্ন মানের হোটেল, অতিথিশালা ও সার্ভিসড থাকার ব্যবস্থা আছে। নিরাপত্তা, লাইসেন্স, বাতিল নীতি ও যাতায়াতের সুবিধা দেখে নির্বাচন করুন।</p></article>
         <article class="info-item"><h3>মুদি ও সুপারমার্কেট</h3><p>ধানমন্ডি আবাসিক এলাকায় মুদি, ফার্মেসি, ছোট বাজার ও সুপারমার্কেট ধরনের সুবিধা সহজে মেলে। নির্দিষ্ট ব্র্যান্ডের বদলে প্রয়োজন ও দূরত্ব অনুযায়ী কাছের বিকল্প বেছে নিন।</p></article>
         <article class="info-item"><h3>জ্বালানি ও চার্জিং</h3><p>প্রধান সড়কগুলোতে প্রচলিত জ্বালানি স্টেশন আছে; বৈদ্যুতিক গাড়ির চার্জিং এখনও তুলনামূলক কম এবং স্থানের কার্যকারিতা বদলাতে পারে। যাত্রার আগে নিজের যানবাহনের মানচিত্রসেবা দিয়ে যাচাই করুন।</p></article>
+        <article class="info-item"><h3>এটিএম ও ব্যাংক</h3><p>প্রধান সড়ক ও বাণিজ্যিক এলাকায় এটিএম, ব্যাংক ও মুদ্রা বিনিময়ের ব্যবস্থা থাকে। নগদের পরিমাণ ও কার্ড-স্বীকৃতি আগে থেকে যাচাই করুন; ভিড়ের সময় লেনদেনে সতর্ক থাকুন।</p></article>
         <article class="info-item"><h3>বসার জায়গা</h3><p>অ্যাম্ফিথিয়েটারের ধাপই প্রধান বসার জায়গা। ভেজা আবহাওয়া বা অনুষ্ঠানের সেটআপে কিছু অংশ ব্যবহারযোগ্য নাও থাকতে পারে।</p></article>
         <article class="info-item"><h3>পানীয় জল</h3><p>নির্ভরযোগ্য উন্মুক্ত পানির পয়েন্ট সবসময় নিশ্চিত নয়। নিজের পুনর্ব্যবহারযোগ্য পানির বোতল আনা সুবিধাজনক; আবর্জনা সঙ্গে করে নির্ধারিত স্থানে ফেলুন।</p></article>
         <article class="info-item"><h3>প্রাথমিক সহায়তা</h3><p>স্থায়ী চিকিৎসা বুথের উপস্থিতি নিশ্চিত নয়। জরুরি পরিস্থিতিতে জাতীয় জরুরি সেবা ও নিকটবর্তী হাসপাতাল/ক্লিনিক ধরনের চিকিৎসা সুবিধার সাহায্য নিন।</p></article>
@@ -267,12 +326,61 @@ const faqSchema = {
     </div>
   </section>
 
+  <WeatherSection />
+
+  <section class="section" id="দল-পরিকল্পনা">
+    <div class="shell">
+      <p class="eyebrow">নির্দিষ্ট দলের জন্য রূপরেখা</p>
+      <h2 class="section-title">তিনটি ভিন্ন গতির পরিকল্পনা</h2>
+      <p class="section-lead">আপনার সঙ্গী ও গতির ওপর ভিত্তি করে নিচের তিনটি রূপরেখা থেকে বেছে নিন। কোনো নির্দিষ্ট সেবা, দোকান বা ব্যবসাকে আমরা সুপারিশ করি নি।</p>
+      <div class="itinerary-grid">
+        {itineraries.map((it) => (
+          <article class="itinerary-card">
+            <span class="tag">{it.tag}</span>
+            <h3>{it.title}</h3>
+            <ul>
+              {it.points.map((p) => (<li>{p}</li>))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" id="ভ্রমণ-পথ">
+    <div class="shell">
+      <p class="eyebrow">সাধারণ ভ্রমণ পথ</p>
+      <h2 class="section-title">অর্ধদিবস ও পূর্ণদিবসের রূপরেখা</h2>
+      <p class="section-lead">সময় ও গতির ওপর ভিত্তি করে দুটি সাধারণ পথ। খাবার বা যানবাহনের বিকল্প প্রকারভেদে নিজে বেছে নিন।</p>
+      <div class="route-pills">
+        {routes.map((rt) => (
+          <article class="route-pill">
+            <span class="tag">{rt.tag}</span>
+            <h3>{rt.title}</h3>
+            <ol>
+              {rt.points.map((p) => (<li>{p}</li>))}
+            </ol>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="map-section" id="মানচিত্র">
     <div class="shell map-card">
       <div class="map-copy">
         <p class="eyebrow">অবস্থান</p>
         <h2 class="section-title">ধানমন্ডি লেকের ৮ নম্বর এলাকার জলধারে</h2>
         <p>মানচিত্রে প্রদর্শিত স্থানাঙ্ক: {latitudeBn}, {longitudeBn}। এমবেড করা মানচিত্রের ভাষা ও অঞ্চল বাংলাদেশি বাংলা হিসেবে সেট করা হয়েছে।</p>
+        <nav class="geo-breadcrumb" aria-label="অবস্থানের শ্রেণিবিন্যাস">
+          <span>রবীন্দ্র সরোবর</span>
+          <span aria-hidden="true">→</span>
+          <span>ঢাকা</span>
+          <span aria-hidden="true">→</span>
+          <span>ঢাকা বিভাগ</span>
+          <span aria-hidden="true">→</span>
+          <span>বাংলাদেশ</span>
+        </nav>
         <div class="address-chip"><strong>ঠিকানা</strong><br />{attraction.address}</div>
       </div>
       <div class="map-frame">
@@ -328,6 +436,7 @@ const faqSchema = {
         <article class="intro-card"><h3>শব্দ ও অনুষ্ঠান</h3><p>অনুষ্ঠান চললে আয়োজকের নিয়ন্ত্রণ, বসার পথ ও জরুরি বের হওয়ার জায়গা খালি রাখুন। ব্যক্তিগত স্পিকার দিয়ে অন্যদের বিরক্ত করবেন না।</p></article>
         <article class="intro-card"><h3>লেক ও আবর্জনা</h3><p>প্লাস্টিক, খাবারের প্যাকেট বা সিগারেটের অবশিষ্ট জল বা গাছপালায় ফেলবেন না। নির্ধারিত বিন না পেলে নিজের সঙ্গে ফিরিয়ে নিন।</p></article>
         <article class="intro-card"><h3>মানুষের গোপনীয়তা</h3><p>শিশু, পরিবার, শিল্পী বা ব্যক্তিগত মুহূর্তের ছবি নিলে সম্মতি ও সম্মান বজায় রাখুন। জনপরিসর মানেই সীমাহীন চিত্রগ্রহণের অধিকার নয়।</p></article>
+        <article class="intro-card"><h3>লেকের বাস্তুতন্ত্র ও নিরাপত্তা</h3><p>ধানমন্ডি লেক একটি নগর জলাধার—সাঁতার কাটা বা জল সরাসরি স্পর্শ করা থেকে বিরত থাকুন। বর্ষায় শৈবাল বা দূষণ বাড়তে পারে; জলধারার কিনারায় শিশুদের নজরে রাখুন এবং প্রকৃতির ভারসাম্য রক্ষায় আবর্জনা নিজের সঙ্গে নিয়ে যান।</p></article>
       </div>
     </div>
   </section>

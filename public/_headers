@@ -1,0 +1,15 @@
+# HSTS ও নিরাপত্তা শিরোনাম (Cloudflare / Workers Static Assets)
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# PWA ম্যানিফেস্ট ও সার্ভিস ওয়ার্কারের জন্য সঠিক MIME
+/site.webmanifest
+  Content-Type: application/manifest+json
+
+/sw.js
+  Content-Type: application/javascript; charset=utf-8
+  Service-Worker-Allowed: /

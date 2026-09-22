@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withSiteName } from '../data/site';
 ---
 <BaseLayout
-  title="কুকি সেটিংস — রবীন্দ্র সরোবর পর্যটক নির্দেশিকা"
+  title={withSiteName('কুকি সেটিংস')}
   description="প্রয়োজনীয়, বিশ্লেষণ, পছন্দ ও বিপণন-সংক্রান্ত কুকি সম্পর্কে তথ্য এবং রবীন্দ্র সরোবর পর্যটক নির্দেশিকার কুকি পছন্দ নিয়ন্ত্রণ।"
   pageClass="legal-page"
 >

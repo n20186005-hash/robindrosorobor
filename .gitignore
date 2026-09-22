@@ -1,5 +1,26 @@
+# --- ডিপেন্ডেন্সি ও বিল্ড আউটপুট (আপলোড করার দরকার নেই) ---
 node_modules/
 dist/
 .astro/
 .wrangler/
+.wrangler-out/
+.dev.vars
+
+# --- লগ ও অস্থায়ী ফাইল ---
+*.log
+npm-debug.log*
+pnpm-debug.log*
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.tsbuildinfo
+
+# --- ক্লাউডফ্লেয়ার দ্রুত পরীক্ষা আউটপুট ---
+.dev.vars
+.miniflare/
+
+# --- পরিবেশ ভেরিয়েবল (গোপন তথ্য সর্বদা ইগনোর করুন) ---
+.env
+.env.*
+!.env.example

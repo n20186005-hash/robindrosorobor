@@ -1,0 +1,55 @@
+---
+import { fetchWeather, buildWeatherUrl, renderWeatherHTML, type WeatherData } from '../lib/weather';
+import { attraction } from '../data/site';
+
+const url = buildWeatherUrl(attraction.latitude, attraction.longitude);
+
+let weather: WeatherData | null = null;
+try {
+  // Server Component: নির্মাণকালে সার্ভার পক্ষ থেকে ডেটা আনয়ন ও স্থির HTML-এ ক্যাশে করা হয়।
+  weather = await fetchWeather(attraction.latitude, attraction.longitude);
+} catch {
+  weather = null;
+}
+---
+
+<section class="section weather-section" id="আবহাওয়া">
+  <div class="shell">
+    <p class="eyebrow">ঢাকার আবহাওয়া</p>
+    <h2 class="section-title">বর্তমান অবস্থা ও আগামী কয়েক দিন</h2>
+    <p class="section-lead">
+      ঢাকার স্থানীয় আবহাওয়া ও বৃষ্টির সম্ভাবনা—বেরোনোর আগে দেখে নিন। আবহাওয়া দ্রুত বদলাতে পারে, তাই পরিবেশ অনুযায়ী তথ্য নবায়ন হতে পারে।
+    </p>
+
+    <div id="weather-root" class="weather-grid" data-weather-url={url}>
+      {
+        weather ? (
+          <Fragment set:html={renderWeatherHTML(weather)} />
+        ) : (
+          <p class="weather-empty">
+            আবহাওয়ার সাময়িক তথ্য এখন পাওয়া যায়নি; কিছুক্ষণ পর আবার চেষ্টা করুন।
+          </p>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // ক্লায়েন্ট পক্ষ: লাইভ আবহাওয়া নবায়ন (সফল হলে সার্ভার-রেন্ডার করা তথ্য প্রতিস্থাপন করে)।
+  import { parseWeather, renderWeatherHTML } from '../lib/weather';
+
+  (() => {
+    const root = document.getElementById('weather-root');
+    if (!root) return;
+    const url = root.getAttribute('data-weather-url');
+    if (!url) return;
+
+    fetch(url)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((raw) => {
+        root.innerHTML = renderWeatherHTML(parseWeather(raw));
+      })
+      .catch(() => {});
+  })();
+</script>

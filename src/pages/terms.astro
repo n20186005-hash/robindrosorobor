@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withSiteName } from '../data/site';
 ---
 <BaseLayout
-  title="সেবার শর্তাবলি — রবীন্দ্র সরোবর পর্যটক নির্দেশিকা"
+  title={withSiteName('সেবার শর্তাবলি')}
   description="রবীন্দ্র সরোবর পর্যটক নির্দেশিকা ব্যবহারের শর্ত, তথ্যের সীমাবদ্ধতা, মেধাস্বত্ব, তৃতীয় পক্ষের সেবা এবং দায়সীমা।"
   pageClass="legal-page"
 >

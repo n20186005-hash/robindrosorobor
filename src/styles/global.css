@@ -148,6 +148,10 @@ button, input { font: inherit; }
 .map-frame iframe { width:100%; height:100%; min-height:470px; border:0; display:block; }
 .address-chip { margin-top:1rem; padding:.9rem 1rem; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.06); border-radius:16px; }
 
+.geo-breadcrumb { display:flex; flex-wrap:wrap; align-items:center; gap:.45rem; margin-top:1rem; font-size:.86rem; color:rgba(255,255,255,.78); }
+.geo-breadcrumb span:not([aria-hidden]) { padding:.2rem .55rem; border-radius:999px; background:rgba(255,255,255,.08); }
+.geo-breadcrumb span[aria-hidden] { opacity:.55; }
+
 .nearby-grid { margin-top:2.3rem; display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
 .nearby-card { padding:1.5rem; border-radius:24px; background:#fff; border:1px solid var(--line); }
 .nearby-card .tag { display:inline-block; padding:.32rem .58rem; border-radius:999px; background:var(--mist); font-size:.74rem; color:var(--deep); }
@@ -288,3 +292,116 @@ button, input { font: inherit; }
 }
 .update-note strong { display:block; margin-bottom:.4rem; color:var(--deep); font-size:1.02rem; }
 .update-note p { margin:0; max-width:78ch; }
+
+/* আবহাওয়া মডিউল */
+.weather-section { background: linear-gradient(180deg, #eef3ee, #f4f0e5); }
+.weather-grid { margin-top: 2.2rem; display: grid; gap: 1.2rem; }
+.weather-now {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .4rem 1.4rem;
+  align-items: center;
+  padding: 1.6rem 1.8rem;
+  border-radius: 26px;
+  background: var(--deep);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+.wnow-glyph { font-size: 3.4rem; line-height: 1; }
+.wnow-main { display: grid; gap: .12rem; }
+.wnow-temp { font-size: 2.4rem; font-weight: 800; }
+.wnow-cond { font-size: 1.1rem; }
+.wnow-meta { color: rgba(255, 255, 255, .72); font-size: .82rem; }
+.wnow-summary { margin-top: .25rem; color: rgba(255, 255, 255, .9); font-size: .95rem; font-weight: 600; }
+
+.weather-advice { display: grid; gap: 1rem; }
+.advice-alert {
+  padding: 1rem 1.2rem;
+  border-radius: 18px;
+  background: #fdecea;
+  border: 1px solid #f3b6ad;
+  color: #9b2c1f;
+}
+.advice-alert p { margin: 0; font-size: .94rem; font-weight: 600; line-height: 1.4; }
+.advice-alert p + p { margin-top: .4rem; }
+.advice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.advice-col { padding: 1.2rem 1.3rem; border-radius: 20px; background: #fff; border: 1px solid var(--line); }
+.advice-col h4 {
+  margin: 0 0 .6rem;
+  font-size: .82rem;
+  color: var(--deep);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: .5rem;
+}
+.advice-col ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .45rem; color: #4f5d58; }
+.advice-col li { font-size: .92rem; line-height: 1.4; }
+
+.weather-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: .7rem; }
+.wday {
+  display: grid;
+  gap: .25rem;
+  justify-items: center;
+  text-align: center;
+  padding: 1rem .4rem;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.wday-name { font-weight: 700; font-size: .8rem; color: var(--deep); }
+.wday-glyph { font-size: 1.7rem; }
+.wday-cond { font-size: .72rem; color: #5c6864; min-height: 2.1em; line-height: 1.25; }
+.wday-temp { font-size: .86rem; font-weight: 700; }
+.wday-pop { font-size: .72rem; color: var(--brick); }
+.weather-empty { padding: 2rem; border-radius: 20px; background: #fff; border: 1px dashed var(--line); color: #5c6864; }
+
+/* ঋতুভিত্তিক ভ্রমণ কৌশল টেবিল */
+.season-table { margin-top: 2.2rem; display: grid; gap: .5rem; }
+.season-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr 1.4fr 1.4fr 1.4fr;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid var(--line);
+  align-items: start;
+}
+.season-head { background: var(--deep); color: #fff; font-weight: 700; }
+.season-head span { font-size: .8rem; }
+.season-name { font-weight: 800; color: var(--deep); }
+.season-row span { font-size: .9rem; color: #4f5d58; }
+
+/* দলভিত্তিক রূপরেখা ও ভ্রমণ পথ */
+.itinerary-grid { margin-top: 2.3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.itinerary-card { padding: 1.5rem; border-radius: 24px; background: #fff; border: 1px solid var(--line); }
+.itinerary-card .tag,
+.route-pill .tag {
+  display: inline-block;
+  padding: .3rem .6rem;
+  border-radius: 999px;
+  background: var(--mist);
+  color: var(--deep);
+  font-size: .74rem;
+}
+.itinerary-card h3 { margin: .8rem 0 .6rem; font-size: 1.18rem; }
+.itinerary-card ul { margin: 0; padding-left: 1.1rem; color: #4f5d58; display: grid; gap: .5rem; }
+.itinerary-card li { font-size: .92rem; }
+.route-pills { margin-top: 2.3rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.route-pill { padding: 1.5rem; border-radius: 24px; background: #efe8d7; border: 1px solid rgba(255, 255, 255, .8); }
+.route-pill h3 { margin: .8rem 0 .6rem; font-size: 1.18rem; }
+.route-pill ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .5rem; color: #4f5d58; font-size: .93rem; }
+
+@media (max-width: 980px) {
+  .weather-days { grid-template-columns: repeat(7, minmax(82px, 1fr)); overflow-x: auto; padding-bottom: .4rem; }
+  .advice-grid { grid-template-columns: 1fr; }
+  .season-row { grid-template-columns: 1fr 1fr; }
+  .season-head { display: none; }
+  .season-name { grid-column: 1 / -1; border-bottom: 1px solid var(--line); padding-bottom: .4rem; }
+  .itinerary-grid { grid-template-columns: 1fr; }
+  .route-pills { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .weather-now { grid-template-columns: 1fr; justify-items: start; }
+  .season-row { grid-template-columns: 1fr; }
+}

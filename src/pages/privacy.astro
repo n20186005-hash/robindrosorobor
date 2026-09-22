@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withSiteName } from '../data/site';
 ---
 <BaseLayout
-  title="গোপনীয়তা নীতি — রবীন্দ্র সরোবর পর্যটক নির্দেশিকা"
+  title={withSiteName('গোপনীয়তা নীতি')}
   description="রবীন্দ্র সরোবর পর্যটক নির্দেশিকা কী তথ্য সংগ্রহ করে, কীভাবে ব্যবহার করে এবং দর্শনার্থীর গোপনীয়তার অধিকার কী—তার বাংলা গোপনীয়তা নীতি।"
   pageClass="legal-page"
 >

@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://robindrosorobor.com/sitemap-index.xml

@@ -1,10 +1,12 @@
 ---
 import '../styles/global.css';
+import { SITE_NAME } from '../data/site';
 
 interface Props {
   title: string;
   description: string;
   imagePath?: string;
+  imageAlt?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   pageClass?: string;
 }
@@ -13,6 +15,7 @@ const {
   title,
   description,
   imagePath = '/icons/logo.svg',
+  imageAlt = 'রবীন্দ্র সরোবর, ধানমন্ডি — ঢাকা',
   structuredData,
   pageClass = '',
 } = Astro.props;
@@ -42,10 +45,12 @@ const jsonLd = structuredData
     <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="bn_BD" />
+    <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
     {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:alt" content={imageAlt} />}
     <meta name="twitter:card" content="summary_large_image" />
     {jsonLd.map((entry) => (
       <script type="application/ld+json" set:html={JSON.stringify(entry)} />
@@ -146,5 +151,14 @@ const jsonLd = structuredData
         <p>© ২০২৬ রবীন্দ্র সরোবর পর্যটক নির্দেশিকা। সর্বস্বত্ব সংরক্ষিত।</p>
       </div>
     </footer>
+
+    <script is:inline>
+      // PWA: সার্ভিস ওয়ার্কার নিবন্ধন (অফলাইন ক্যাশে ও দ্রুত লোড)
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
   </body>
 </html>
