@@ -10,6 +10,6 @@ The Worker consolidates HTTP requests to the HTTPS apex while preserving path/qu
 
 ## Public facts and photographs
 
-See `SOURCES.md`, `THIRD_PARTY_NOTICES.md` and `src/data/photo-provenance.json`. The three current photographs are locally hosted original bytes with individual hashes, source and licence records. Their historical dates do not establish current facilities or event schedules. `scripts/download-photos.mjs` is an optional, hash-verifying recovery tool; builds do not download photos.
+See `SOURCES.md`, `THIRD_PARTY_NOTICES.md` and `src/data/photo-provenance.json`. The two current photographs are locally hosted original bytes with individual hashes, source and licence records. Their historical dates do not establish current facilities or event schedules. `scripts/download-photos.mjs` is an optional, hash-verifying recovery tool; builds do not download photos.
 
 The existing Google Analytics choice controls that service only. Maps, Open-Meteo weather requests and possible independent hosting performance measurement are described on the privacy/settings pages. Unused preference and marketing categories cannot be activated. No private diagnostic exports belong in this repository.
