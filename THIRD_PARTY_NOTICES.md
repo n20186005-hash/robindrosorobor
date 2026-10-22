@@ -1,18 +1,10 @@
-# তৃতীয় পক্ষের আলোকচিত্র ও সেবা
+# Photographs and external services
 
-এই প্রকল্পের নিজস্ব লেখা, লোগো ও UI নকশা আলোকচিত্রের লাইসেন্স থেকে পৃথক। কোনো ছবির পুনঃব্যবহারের আগে সংশ্লিষ্ট উৎসপাতার বর্তমান লাইসেন্স নিজে যাচাই করা উচিত।
+Original site text/design and the three photographs have separate rights. Public source declarations are not an independent guarantee of every possible right.
 
-## আলোকচিত্র
+- **Robindro Sorobor01.JPG** and **Robindro Sorobor07.JPG** — Md. Shafiqul Islam Chowdhury ‘Tutul’; both published13August2008, capture dates unspecified. Selected licence: [CC BY-SA3.0](https://creativecommons.org/licenses/by-sa/3.0/), as stated on their respective [first](https://commons.wikimedia.org/wiki/File:Robindro_Sorobor01.JPG) and [second](https://commons.wikimedia.org/wiki/File:Robindro_Sorobor07.JPG) source pages. Each source also carries the Bangladesh panorama notice limited to works published before18September2023; the recorded original publications predate that cutoff. No deletion nomination was observed during this review.
+- **Dhanmondi Lake Dhaka.jpg** — Mahjuja Islam; photographed7November2024; [CC0](https://creativecommons.org/publicdomain/zero/1.0/), declared as own work on its [source page](https://commons.wikimedia.org/wiki/File:Dhanmondi_Lake_Dhaka.jpg).
 
-1. **Robindro Sorobor01.JPG** — মো. শফিকুল ইসলাম চৌধুরী ‘টুটুল’। Wikimedia Commons। লাইসেন্স: CC BY-SA 3.0 / উৎসপাতায় উল্লিখিত প্রযোজ্য শর্ত।
-2. **Robindro Sorobor07.JPG** — মো. শফিকুল ইসলাম চৌধুরী ‘টুটুল’। Wikimedia Commons। লাইসেন্স: CC BY-SA 3.0 / উৎসপাতায় উল্লিখিত প্রযোজ্য শর্ত।
-3. **Dhanmondi Lake Dhaka.jpg** — মাহজুজা ইসলাম। Wikimedia Commons। লাইসেন্স: CC0 1.0।
-4. **Channel I Bengali New Year Ceremony — Rabindra Sarobar, Dhanmondi, Dhaka** — বাংলাদেশ তথ্য অধিদফতর। Wikimedia Commons-এ বাংলাদেশের প্রযোজ্য পাবলিক-ডোমেইন ট্যাগসহ প্রকাশিত।
+Exact original bytes are served locally. CSS may crop the displayed frame. Visible author, supplied title, date scope, source and licence notices accompany the images. Per-file originals, sizes, dimensions and hashes are recorded in `src/data/photo-provenance.json`.
 
-মূল উৎস URL, মিডিয়া URL এবং দৃশ্যমান কৃতিত্ব `src/data/site.ts`-এ রাখা হয়েছে।
-
-## তৃতীয় পক্ষের সেবা
-
-- Google Maps — এমবেড করা অবস্থান মানচিত্র।
-- Google Analytics — কেবল দর্শনার্থীর বিশ্লেষণ-সম্মতির পরে লোড হয়।
-- Wikimedia Commons — বাস্তব স্থান-নির্দিষ্ট আলোকচিত্রের হোস্ট ও লাইসেন্স মেটাডেটা।
+External resources: Google Maps iframe; opt-in Google Analytics; Open-Meteo weather data under [CC BY4.0](https://open-meteo.com/en/licence/); hosting may add independent Cloudflare Web Analytics. Local images do not require a Wikimedia connection. Source links open external sites only when selected.

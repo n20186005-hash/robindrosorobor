@@ -1,88 +1,15 @@
-# রবীন্দ্র সরোবর পর্যটক নির্দেশিকা
+# রবীন্দ্র সরোবর, ধানমন্ডি, ঢাকা
 
-ঢাকার ধানমন্ডি লেকের রবীন্দ্র সরোবরকে কেন্দ্র করে তৈরি স্বাধীন, অলাভজনক বাংলা দর্শনার্থী তথ্যসাইট। মূল পাতা একপাতার দীর্ঘ-ফর্ম নির্দেশিকা; গোপনীয়তা নীতি, সেবার শর্তাবলি ও কুকি সেটিংস আলাদা রুটে রাখা হয়েছে।
+Independent Bengali visitor guide for the open-air cultural venue beside Dhanmondi Lake in Dhaka, Bangladesh. This is not an operator, booking, contact or official tourism service.
 
-## প্রযুক্তি
+## Local validation
 
-- Astro 7.2.6
-- Tailwind CSS 4.3.3 + `@tailwindcss/vite` 4.3.3
-- TypeScript 6.0.3
-- `@astrojs/check` 0.9.10
-- `@astrojs/sitemap` 3.7.3
-- Wrangler 4.125.0
-- pnpm 11.23.0
-- Node.js 24.19.0 LTS
-- Cloudflare Workers Static Assets
+Use the pinned Node/pnpm versions and lockfile. Run `pnpm check` and `pnpm build`; these include the content and generated-output audits. `node scripts/behavior-test.mjs` checks existing analytics controls and Worker routes. `node scripts/weather-test.mjs` checks the actual client weather bundle with success/failure fixtures. The current build output remains ignored.
 
-সব সংস্করণ `package.json`-এ পূর্ণ সংখ্যায় পিন করা। Node সংস্করণ `engines` ও `.node-version`—দুই জায়গায় একই।
+The Worker consolidates HTTP requests to the HTTPS apex while preserving path/query, serves the existing routes, and gives explicit error aliases genuine404/noindex responses. `wrangler.toml` names the project identified by the repository's official build check. Source configuration is not proof of a live binding or deployment; browser and production acceptance are separate.
 
-## ডোমেইন সেট করা
+## Public facts and photographs
 
-নিজস্ব ডোমেইন নির্ধারিত হলে **শুধু** `astro.config.mjs`-এর `siteUrl` মানটি পূরণ করুন। অন্য কোথাও নিজস্ব সাইটের ডোমেইন হার্ডকোড করার প্রয়োজন নেই।
+See `SOURCES.md`, `THIRD_PARTY_NOTICES.md` and `src/data/photo-provenance.json`. The three current photographs are locally hosted original bytes with individual hashes, source and licence records. Their historical dates do not establish current facilities or event schedules. `scripts/download-photos.mjs` is an optional, hash-verifying recovery tool; builds do not download photos.
 
-ডোমেইন ফাঁকা থাকলে:
-
-- বিল্ড বন্ধ হয় না;
-- canonical ও `og:url` বাদ যায়;
-- absolute Open Graph image URL বাদ যায়;
-- নিজের সাইটের URL JSON-LD-এ জোর করে বসানো হয় না;
-- sitemap integration চালু হয় না।
-
-ডোমেইন দিলে `@astrojs/sitemap` স্বয়ংক্রিয়ভাবে sitemap তৈরি করে; হাতে লেখা `<url>` বা `lastmod` ব্যবহার করা হয়নি।
-
-## স্থানীয় উন্নয়ন
-
-```bash
-corepack enable
-pnpm install --frozen-lockfile
-pnpm dev
-```
-
-## যাচাই
-
-```bash
-pnpm check
-pnpm build
-```
-
-`pnpm check` Astro diagnostics-এর পরে নিজস্ব কনটেন্ট অডিট চালায়। `pnpm build` নির্মাণের পরে `dist` স্ক্যান করে নমুনা ডোমেইন, স্থানীয় হোস্ট, ব্রাউজার-এক্সটেনশন URL, ভুল মানচিত্র ভাষা ও ভুল শহরের নাম আটকায়। sitemap থাকলে HTTPS URL ও `lastmod`-ও যাচাই করে।
-
-পরিষ্কার পরিবেশে প্রস্তাবিত পূর্ণ যাচাই:
-
-```bash
-rm -rf node_modules
-CI=1 corepack pnpm install --frozen-lockfile
-pnpm check
-pnpm build
-```
-
-## Cloudflare Worker-এ প্রকাশ
-
-সাইটটি static Astro output হিসেবে তৈরি হয় এবং `wrangler.toml`-এ `dist`-কে Workers Static Assets হিসেবে প্রকাশ করা হয়। SSR বা Worker runtime adapter দরকার নেই।
-
-```bash
-pnpm deploy
-```
-
-## গোপনীয়তা ও বিশ্লেষণ
-
-GA4 measurement ID: `G-HXM22WWPKP`। বিশ্লেষণ ডিফল্টভাবে বন্ধ থাকে; দর্শনার্থী `/cookies/` পাতায় সম্মতি দিলে তবেই Google Analytics স্ক্রিপ্ট লোড হয়। Google Maps একটি বাহ্যিক iframe এবং তার নিজস্ব গোপনীয়তা নীতি প্রযোজ্য।
-
-## আলোকচিত্র
-
-স্থান-নির্দিষ্ট বাস্তব ছবি Wikimedia Commons ও বাংলাদেশ তথ্য অধিদফতরের প্রকাশিত ছবির মাধ্যমে দেখানো হয়েছে। প্রতিটি ছবির কৃতিত্ব, লাইসেন্স ও উৎস দৃশ্যমানভাবে দেওয়া আছে। বিস্তারিত `THIRD_PARTY_NOTICES.md`-এ।
-
-এই নির্মাণ-পরিবেশে বহিরাগত বাইনারি ফাইল ডাউনলোড নিষ্ক্রিয় থাকায় Commons-এর মূল ছবিগুলো সরাসরি তাদের মিডিয়া URL থেকে লোড করা হচ্ছে; লোগো ও সব favicon সম্পূর্ণ স্থানীয়। নেটওয়ার্ক-সক্ষম পরিবেশে `node scripts/download-photos.mjs` চালালে একই চারটি উৎসফাইল `public/photos/`-এ নামানো যাবে। এরপর `src/data/site.ts`-এর `src` মান `/photos/...` পথে বদলাতে হবে—লাইসেন্স কৃতিত্ব অপরিবর্তিত রাখতে হবে।
-
-## কনটেন্ট নীতি
-
-- দৃশ্যমান সাইটকনটেন্ট বাংলা ভাষায়।
-- নির্দিষ্ট রেস্তোরাঁ, হোটেল, পরিবহন কোম্পানি, দোকান বা অন্য বাণিজ্যিক প্রতিষ্ঠান সুপারিশ করা হয় না।
-- সময়সংবেদনশীল ভাড়া/মূল্য/পার্কিং সংখ্যা স্থায়ী সত্য হিসেবে লেখা হয়নি।
-- ইতিহাসে অনিশ্চিত বিষয় স্পষ্টভাবে অনিশ্চিত বলা হয়েছে।
-- মূল তথ্যের ভিত্তি: ঢাকা দক্ষিণ সিটি কর্পোরেশন, বাংলাদেশ ট্যুরিজম বোর্ড, বাংলাদেশ পর্যটন করপোরেশন, প্রকাশিত সংবাদসূত্র, মানচিত্র তালিকা ও মুক্ত আলোকচিত্রের মেটাডেটা।
-
-
-## এই প্যাকেজের যাচাই অবস্থা
-
-সোর্স, কনটেন্ট ও কনফিগারেশন অডিট সম্পন্ন হয়েছে। তবে বর্তমান স্যান্ডবক্সে npm/pnpm registry ও বাহ্যিক বাইনারি ডাউনলোড অবরুদ্ধ থাকায় এখানে নতুন করে প্রকৃত `pnpm-lock.yaml` তৈরি, dependency install, `astro check` ও `astro build` চালানো যায়নি। তাই এই আর্কাইভকে নেটওয়ার্ক-সক্ষম পরিবেশে lockfile তৈরি ও পূর্ণ build validation না করা পর্যন্ত “চূড়ান্ত CI-যাচাইকৃত” বলে ধরা উচিত নয়। বিস্তারিত `RELEASE_CHECKLIST.md`-এ।
+The existing Google Analytics choice controls that service only. Maps, Open-Meteo weather requests and possible independent hosting performance measurement are described on the privacy/settings pages. Unused preference and marketing categories cannot be activated. No private diagnostic exports belong in this repository.

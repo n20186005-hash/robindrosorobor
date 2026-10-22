@@ -4,7 +4,7 @@ import { withSiteName } from '../data/site';
 ---
 <BaseLayout
   title={withSiteName('কুকি সেটিংস')}
-  description="প্রয়োজনীয়, বিশ্লেষণ, পছন্দ ও বিপণন-সংক্রান্ত কুকি সম্পর্কে তথ্য এবং রবীন্দ্র সরোবর পর্যটক নির্দেশিকার কুকি পছন্দ নিয়ন্ত্রণ।"
+  description="রবীন্দ্র সরোবর ঢাকা নির্দেশিকার Google Analytics পছন্দ, সংরক্ষণ ব্যর্থতার সীমা ও পৃথক তৃতীয় পক্ষের সংযোগ সম্পর্কে তথ্য।"
   pageClass="legal-page"
 >
   <section class="legal-hero">
@@ -12,13 +12,13 @@ import { withSiteName } from '../data/site';
       <a class="legal-back" href="/">← প্রথম পাতায় ফিরুন</a>
       <p class="eyebrow">আপনার নিয়ন্ত্রণ</p>
       <h1>কুকি সেটিংস</h1>
-      <p>সর্বশেষ হালনাগাদ: আগস্ট ২০২৬</p>
+      <p>সর্বশেষ হালনাগাদ: ২২ অক্টোবর ২০২৬</p>
     </div>
   </section>
   <section class="legal-content">
     <article class="shell prose">
       <p class="notice">
-        আপনি কোন ঐচ্ছিক প্রযুক্তি চালু রাখতে চান তা এখানে নিয়ন্ত্রণ করতে পারেন। প্রয়োজনীয় স্টোরেজ সাইটের মৌলিক কার্যক্রম ও আপনার সম্মতির সিদ্ধান্ত মনে রাখার জন্য ব্যবহৃত হয়; বিশ্লেষণ আপনার স্পষ্ট সম্মতি ছাড়া চালু হয় না।
+        আপনি কোন ঐচ্ছিক প্রযুক্তি চালু রাখতে চান তা এখানে নিয়ন্ত্রণ করতে পারেন। Google Analytics আপনার স্পষ্ট সম্মতি ছাড়া চালু হয় না। এই নিয়ন্ত্রণ মানচিত্র বা হোস্টিংয়ের পৃথক কর্মক্ষমতা পরিমাপ বন্ধ করে না।
       </p>
 
       <h2>কুকি কীভাবে ব্যবহার করি</h2>
@@ -26,7 +26,7 @@ import { withSiteName } from '../data/site';
 
       <div class="cookie-panel" id="কুকি-নিয়ন্ত্রণ">
         <div class="cookie-row">
-          <div><h3>প্রয়োজনীয় কুকি</h3><p>সাইটের মূল কার্যক্রম ও সম্মতির রেকর্ড রাখার জন্য দরকার। এগুলো বন্ধ করা যায় না।</p></div>
+          <div><h3>মূল পাতার সুবিধা</h3><p>দর্শনার্থী তথ্য বিশ্লেষণের অনুমতি ছাড়াই পড়া যায়। পছন্দ সংরক্ষণ ব্রাউজারের স্টোরেজ ব্যবহারের সুযোগের ওপর নির্ভর করে।</p></div>
           <span class="status-pill">সবসময় সক্রিয়</span>
         </div>
 
@@ -36,8 +36,8 @@ import { withSiteName } from '../data/site';
         </label>
 
         <label class="cookie-row">
-          <div><h3>পছন্দ-সংক্রান্ত স্টোরেজ</h3><p>ভাষা, প্রদর্শন বা ভবিষ্যৎ সাইট-পছন্দ মনে রাখতে ব্যবহারের অনুমতি। বর্তমানে সাইট একমাত্র বাংলা ভাষায় এবং আলাদা থিম সংরক্ষণ করে না।</p></div>
-          <span class="toggle"><input id="পছন্দ" type="checkbox" /> সক্রিয়</span>
+          <div><h3>পছন্দ-সংক্রান্ত স্টোরেজ</h3><p>সাইট কেবল বাংলায় এবং আলাদা থিম বা ভাষা-পছন্দ সংরক্ষণ করে না। এই নিষ্ক্রিয় শ্রেণির কোনো আলাদা অনুমতি নেওয়া হয় না।</p></div>
+          <span class="toggle"><input id="পছন্দ" type="checkbox" disabled /> ব্যবহার করা হয় না</span>
         </label>
 
         <div class="cookie-row">
@@ -47,7 +47,7 @@ import { withSiteName } from '../data/site';
       </div>
 
       <h2>সম্মতি ব্যবস্থাপনা</h2>
-      <p>আপনি যেকোনো সময় এই পাতায় ফিরে পছন্দ পরিবর্তন করতে পারেন। কিছু ঐচ্ছিক প্রযুক্তি বন্ধ করলে ভবিষ্যতের কিছু সুবিধা সীমিত হতে পারে, তবে মূল দর্শনার্থী তথ্য পড়তে বাধা দেওয়ার উদ্দেশ্য নেই।</p>
+      <p>আপনি যেকোনো সময় এই পাতায় ফিরে পছন্দ পরিবর্তন করতে পারেন। প্রত্যাখ্যান করলে ইতিমধ্যে লোড হওয়া বিশ্লেষণও বন্ধ হয়। সংরক্ষণ ব্যর্থ হলে একই ট্যাবের সেশন বা নামের অবস্থায় প্রত্যাখ্যান রাখার চেষ্টা হয়; সব ব্যবস্থা ব্যর্থ হলে শুধু বর্তমান পাতায় বন্ধ থাকার নিশ্চয়তা থাকে। অন্য ট্যাবে পুরোনো অনুমতি থাকতে পারে; ব্রাউজার থেকে সাইটের ডেটা মুছতে পারেন।</p>
       <div class="cookie-actions">
         <button class="save" id="পছন্দ-সংরক্ষণ" type="button">পছন্দ সংরক্ষণ করুন</button>
         <button class="reject" id="সব-প্রত্যাখ্যান" type="button">ঐচ্ছিক সব প্রত্যাখ্যান করুন</button>
@@ -59,44 +59,11 @@ import { withSiteName } from '../data/site';
         এমবেড করা গুগল মানচিত্র নিজের প্রয়োজন অনুযায়ী কুকি বা অনুরূপ প্রযুক্তি ব্যবহার করতে পারে। মানচিত্র একটি বাহ্যিক এমবেড; সেটির সব স্টোরেজ আমাদের কুকি-সুইচ দিয়ে নিয়ন্ত্রণ করা সম্ভব নয়। আপনি চাইলে ব্রাউজারের গোপনীয়তা সেটিংস দিয়ে তৃতীয় পক্ষের কুকি আরও সীমিত করতে পারেন।
       </p>
 
+<h2>হোস্টিংয়ের কর্মক্ষমতা পরিমাপ</h2><p>Cloudflare Web Analytics পাতা দেখা ও লোড হওয়ার কর্মক্ষমতা মাপতে একটি ব্রাউজার beacon যোগ করতে পারে। এটি Google Analytics থেকে আলাদা; এই পাতার Google Analytics পছন্দ দিয়ে এটি বন্ধ হয় না। ব্রাউজার, বিষয়বস্তু-রোধক বা নিরাপত্তা নীতি স্ক্রিপ্ট বা অনুরোধ আটকাতে পারে। স্ক্রিপ্ট থাকা মানেই তথ্য পাঠানো সফল হয়েছে নয়। <a href="https://developers.cloudflare.com/web-analytics/about/">Cloudflare-এর ব্যাখ্যা</a> দেখুন।</p><h2>আবহাওয়ার তথ্য</h2><p>আবহাওয়ার তথ্য Open-Meteo থেকে আসে। পাতা লোড হলে ব্রাউজার পূর্বনির্ধারিত স্থানের স্থানাঙ্কসহ সেই সেবায় অনুরোধ পাঠায়; দর্শনার্থীর নিজস্ব অবস্থান চাওয়া হয় না।</p>
       <h2>আরও তথ্য</h2>
       <p>ব্যক্তিগত তথ্যের ব্যবহার, তৃতীয় পক্ষের সেবা ও আপনার অধিকার সম্পর্কে বিস্তারিত জানতে <a href="/privacy/">গোপনীয়তা নীতি</a> পড়ুন।</p>
     </article>
   </section>
 
-  <script is:inline>
-    (() => {
-      const key = 'রবীন্দ্র-সরোবর-কুকি-পছন্দ';
-      const analytics = document.getElementById('বিশ্লেষণ');
-      const preferences = document.getElementById('পছন্দ');
-      const save = document.getElementById('পছন্দ-সংরক্ষণ');
-      const reject = document.getElementById('সব-প্রত্যাখ্যান');
-      const feedback = document.getElementById('কুকি-বার্তা');
 
-      const read = () => {
-        try { return JSON.parse(localStorage.getItem(key) || '{}'); }
-        catch { return {}; }
-      };
-      const current = read();
-      analytics.checked = Boolean(current.analytics);
-      preferences.checked = Boolean(current.preferences);
-
-      const persist = (value) => {
-        localStorage.setItem(key, JSON.stringify(value));
-        window['ga-disable-G-HXM22WWPKP'] = !value.analytics;
-        window.dispatchEvent(new CustomEvent('কুকি-পছন্দ-বদলেছে'));
-        feedback.textContent = 'আপনার পছন্দ এই ব্রাউজারে সংরক্ষণ করা হয়েছে।';
-      };
-
-      save.addEventListener('click', () => {
-        persist({ necessary: true, analytics: analytics.checked, preferences: preferences.checked, marketing: false });
-      });
-
-      reject.addEventListener('click', () => {
-        analytics.checked = false;
-        preferences.checked = false;
-        persist({ necessary: true, analytics: false, preferences: false, marketing: false });
-      });
-    })();
-  </script>
 </BaseLayout>

@@ -21,8 +21,7 @@ const attractionSchema = {
   description:
     'রবীন্দ্র সরোবর (Robindro Sorobor) — ঢাকার ধানমন্ডি লেকের পাশে অবস্থিত উন্মুক্ত সাংস্কৃতিক মঞ্চ ও নগর জনপরিসরের বিস্তারিত দর্শনার্থী নির্দেশিকা।',
   ...(ownUrl ? { url: ownUrl } : {}),
-  image: [photos.hero.src, photos.stage.src, photos.lake.src, photos.event.src],
-  isAccessibleForFree: true,
+  image: [photos.hero.src, photos.stage.src, photos.lake.src],
   address: {
     '@type': 'PostalAddress',
     streetAddress: '৮ নম্বর, ধানমন্ডি লেক রোড',
@@ -37,21 +36,8 @@ const attractionSchema = {
     longitude: attraction.longitude,
   },
   hasMap: seo.mapsShareUrl,
-  sameAs: [seo.mapsShareUrl, seo.govtTourismUrl, seo.wikimediaCategory],
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '00:00',
-      closes: '23:59',
-    },
-  ],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: attraction.rating,
-    reviewCount: attraction.ratingCount,
-    bestRating: 5,
-  },
+  sameAs: [seo.mapsShareUrl, seo.wikimediaCategory],
+
 };
 
 const faqSchema = {
@@ -77,7 +63,6 @@ const faqSchema = {
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-media">
       <img src={photos.hero.src} alt={photos.hero.alt} width="2048" height="1536" fetchpriority="high" />
-      <p class="hero-photo-credit">ছবি: {photos.hero.credit} · <a href={photos.hero.licenseUrl} rel="noreferrer">{photos.hero.license}</a> · <a href={photos.hero.source} rel="noreferrer">উৎস</a></p>
     </div>
     <div class="shell hero-content">
       <p class="hero-kicker">লেক · মঞ্চ · নগর সংস্কৃতি</p>
@@ -91,16 +76,19 @@ const faqSchema = {
         <a class="btn btn-secondary" href="#মানচিত্র">মানচিত্রে অবস্থান</a>
       </div>
     </div>
+      <p class="hero-photo-credit">ছবি: {photos.hero.credit} · {photos.hero.title} · {photos.hero.dateLabel} · মূল ফাইল অপরিবর্তিত; পর্দায় অংশবিশেষ দেখা যেতে পারে। · <a href={photos.hero.licenseUrl} rel="noreferrer">{photos.hero.license}</a> · <a href={photos.hero.source} rel="noreferrer">উৎস</a></p>
   </section>
 
   <div class="shell hero-facts" aria-label="দ্রুত তথ্য">
     <div class="fact-strip">
       <div class="fact"><span>অবস্থান</span><strong>ধানমন্ডি ৮ নম্বর লেক এলাকা</strong></div>
-      <div class="fact"><span>সাধারণ প্রবেশ</span><strong>সাধারণত বিনামূল্যে</strong></div>
-      <div class="fact"><span>মানচিত্র তালিকা</span><strong>২৪ ঘণ্টা · বাস্তব প্রবেশ যাচাইযোগ্য</strong></div>
-      <div class="fact"><span>দর্শনার্থী মূল্যায়ন</span><strong>প্রদর্শিত স্কোর ৪.৪ / ৫</strong></div>
+      <div class="fact"><span>সাধারণ প্রবেশ</span><strong>নিয়ম আগে নিশ্চিত করুন</strong></div>
+      <div class="fact"><span>মানচিত্র তালিকা</span><strong>খোলার সময় পাওয়া যায়নি</strong></div>
+      <div class="fact"><span>দর্শনার্থী মূল্যায়ন</span><strong>Google Maps: ৪.৪ / ৫</strong></div>
     </div>
   </div>
+
+  <p class="shell" style="padding-top:1.5rem;">Google Maps · ২২ অক্টোবর ২০২৬: ৪.৪/৫, ৪৯,৯৮০টি মূল্যায়ন। এটি তৃতীয় পক্ষের পরিবর্তনশীল তালিকা, এই সাইটের নিজস্ব মূল্যায়ন নয়। <a href={seo.mapsShareUrl}>স্থানটির তালিকা ও বর্তমান নির্দেশনা দেখুন</a>। তালিকায় খোলার সময় দেখা যায়নি।</p>
 
   <section class="section" id="পরিচিতি">
     <div class="shell grid-2">
@@ -130,7 +118,7 @@ const faqSchema = {
       <figure class="photo-frame">
         <img src={photos.stage.src} alt={photos.stage.alt} width="2048" height="1536" loading="lazy" />
         <figcaption class="photo-credit">
-          ছবি: {photos.stage.credit} · <a href={photos.stage.licenseUrl} rel="noreferrer">{photos.stage.license}</a> · <a href={photos.stage.source} rel="noreferrer">উৎস</a>
+          ছবি: {photos.stage.credit} · {photos.stage.title} · {photos.stage.dateLabel} · মূল ফাইল অপরিবর্তিত; পর্দায় অংশবিশেষ দেখা যেতে পারে। · <a href={photos.stage.licenseUrl} rel="noreferrer">{photos.stage.license}</a> · <a href={photos.stage.source} rel="noreferrer">উৎস</a>
         </figcaption>
       </figure>
     </div>
@@ -157,33 +145,32 @@ const faqSchema = {
         </article>
         <article class="timeline-item">
           <strong>উন্মুক্ত মঞ্চের আবির্ভাব</strong>
-          <p>প্রকাশিত নগর-ইতিহাসে মঞ্চটির নির্মাণকে দুই হাজারের দশকের শুরুর দিকের জনপরিসর উন্নয়নের সঙ্গে যুক্ত করা হয়; সুনির্দিষ্ট উদ্বোধনী নথি সহজলভ্য নয়।</p>
+          <p>২৭ ফেব্রুয়ারি ২০২৬-এর The Business Standard প্রতিবেদন মঞ্চটি দুই হাজারের দশকের শুরুতে নির্মিত হয়ে থাকতে পারে বলে উল্লেখ করে। এটি সম্ভাব্য সময়; সুনির্দিষ্ট উদ্বোধনী নথি এখানে যাচাই করা হয়নি।</p>
         </article>
         <article class="timeline-item">
           <strong>চলমান সাংস্কৃতিক ব্যবহার</strong>
-          <p>থিয়েটার, কবিতা, সংগীত, উৎসব ও নাগরিক সমাবেশের মাধ্যমে প্রায় দুই দশক ধরে মঞ্চটি ঢাকার সাংস্কৃতিক স্মৃতির অংশ হয়ে আছে।</p>
+          <p>২৭ ফেব্রুয়ারি ২০২৬-এর প্রতিবেদনে প্রায় দুই দশকের থিয়েটার, সংগীত, কবিতা ও স্থানীয় শিল্পীদের ব্যবহারের কথা বলা হয়েছে; এটি আনুষ্ঠানিক প্রতিষ্ঠাকালের প্রমাণ নয়।</p>
         </article>
       </div>
 
       <aside class="update-note" aria-label="সাম্প্রতিক অবকাঠামো প্রেক্ষিত">
         <strong>সাম্প্রতিক অবকাঠামো প্রেক্ষিত</strong>
         <p>
-          ধানমন্ডি লেকের হাঁটার পথ, আলোকসজ্জা, রেলিং, পানি নিষ্কাশন ও জনসুবিধা উন্নয়নের নতুন পরিকল্পনা নিয়ে সাম্প্রতিক সময়ে আলোচনা হয়েছে। পরিকল্পনা বাস্তবায়নের পর্যায়ে কোনো অংশ সাময়িকভাবে ঘেরা, পথ পরিবর্তিত বা কম ব্যবহারযোগ্য হতে পারে। তাই ভ্রমণের দিন স্থানীয় নির্দেশনা ও কর্তৃপক্ষের নোটিশকে অগ্রাধিকার দিন।
+          ২৪ আগস্ট ২০২৬-এর The Business Standard প্রতিবেদনে ধানমন্ডি লেকের উন্নয়ন পরিকল্পনার কথা বলা হয়েছে। পরিকল্পিত সুবিধাকে এখানে চালু সুবিধা হিসেবে ধরা হয়নি। পরিকল্পনা বাস্তবায়নের পর্যায়ে কোনো অংশ সাময়িকভাবে ঘেরা, পথ পরিবর্তিত বা কম ব্যবহারযোগ্য হতে পারে। তাই ভ্রমণের দিন স্থানীয় নির্দেশনা ও কর্তৃপক্ষের নোটিশকে অগ্রাধিকার দিন।
         </p>
       </aside>
 
       <aside class="update-note" aria-label="সাংস্কৃতিক ভূমিকা">
         <strong>সাংস্কৃতিক ভূমিকা ও নামের তাৎপর্য</strong>
         <p>
-          “রবীন্দ্র” রবীন্দ্রনাথ ঠাকুরের (১৮৬১–১৯৪১) সংক্ষিপ্ত রূপ—তিনি সাহিত্যে নোবেল পুরস্কার পাওয়া প্রথম এশীয়, যাঁর গান, কবিতা ও নাটক বাংলা সংস্কৃতির মূল স্রোতে জায়গা করে নিয়েছে। একটি উন্মুক্ত মঞ্চ তাঁর নামে নামকরণ করায় ঢাকার নাগরিক জীবনে সংস্কৃতি ও স্মৃতির সংযোগ দেখা যায়।
+          “রবীন্দ্র” রবীন্দ্রনাথ ঠাকুরের (১৮৬১–১৯৪১) সংক্ষিপ্ত রূপ—তিনি সাহিত্যে নোবেল পুরস্কার পাওয়া প্রথম এশীয়, যাঁর গান, কবিতা ও নাটক বাংলা সংস্কৃতির মূল স্রোতে জায়গা করে নিয়েছে। এই নামের সাংস্কৃতিক অনুষঙ্গ আছে; আনুষ্ঠানিক নামকরণের নথি এখানে যাচাই করা হয়নি।
         </p>
         <p>
           বৈশাখী বা শীতকালীন সাংস্কৃতিক আয়োজন, থিয়েটার ও কবিতার সমাবেশে মঞ্চটি বিশেষভাবে সরব থাকে। তবে নামের আনুষ্ঠানিক উৎস নিয়ে স্পষ্ট সরকারি নথি সহজলভ্য নয়—তাই এটিকে জনপ্রিয় কাহিনি হিসেবে নয়, সাংস্কৃতিক প্রেক্ষিত হিসেবে তুলে ধরা হয়েছে।
         </p>
       </aside>
 
-      <div class="history-image">
-        <img src={photos.event.src} alt={photos.event.alt} width="1800" height="813" loading="lazy" />
+      <div class="history-image" style="grid-template-columns:1fr;">
         <div class="history-note">
           <h3>নাম, স্মৃতি ও একটি গুরুত্বপূর্ণ সতর্কতা</h3>
           <p>
@@ -195,9 +182,6 @@ const faqSchema = {
             সাম্প্রতিক আলোচনায় রক্ষণাবেক্ষণ, জলাবদ্ধতা, শব্দ ও বাণিজ্যিক ব্যবহারের চাপের কথাও উঠে এসেছে। এসব বাস্তবতা
             বোঝা গুরুত্বপূর্ণ, কারণ পেশাদার দর্শনার্থী নির্দেশিকার কাজ শুধু সুন্দর দিক দেখানো নয়—জনপরিসরের ব্যবহার ও
             সীমাবদ্ধতাও নিরপেক্ষভাবে জানানো।
-          </p>
-          <p class="photo-credit" style="position:static; margin-top:1rem;">
-            অনুষ্ঠানচিত্র: {photos.event.credit} · {photos.event.license} · <a href={photos.event.source} rel="noreferrer">উৎস</a>
           </p>
         </div>
       </div>
@@ -227,7 +211,7 @@ const faqSchema = {
         <article class="plan-card">
           <span class="num">৩</span>
           <h3>টিকিট ও খরচ</h3>
-          <p>সাধারণ জনপরিসরে প্রবেশ সাধারণত বিনামূল্যে। বিশেষ অনুষ্ঠান, নৌভ্রমণ, খাবার বা অন্যান্য ঐচ্ছিক সেবার আলাদা মূল্য থাকতে পারে—নির্দিষ্ট অঙ্ক স্থায়ী ধরে নেওয়া ঠিক নয়।</p>
+          <p>বর্তমান প্রবেশমূল্য বা সর্বজনীন বিনামূল্যে প্রবেশের নিয়ম স্বাধীনভাবে যাচাই করা হয়নি। অনুষ্ঠান ও ঐচ্ছিক সেবার আলাদা শর্ত থাকতে পারে; স্থানীয় নির্দেশনা ও আয়োজকের ঘোষণা আগে দেখুন।</p>
         </article>
         <article class="plan-card">
           <span class="num">৪</span>
@@ -243,8 +227,7 @@ const faqSchema = {
       <p class="eyebrow">ঋতুভিত্তিক ভ্রমণ কৌশল</p>
       <h2 class="section-title">কখন যাবেন—আবহাওয়া, লেক ও প্রকৃতির ওপর ভিত্তি করে</h2>
       <p class="section-lead">
-        নিচের বিবরণ বাংলাদেশ আবহাওয়া অধিদপ্তরের দীর্ঘমেয়াদি জলবায়ু পর্যবেক্ষণ ও ঢাকার সাধারণ ঋতুচক্রের সাধারণ ধারণার ওপর ভিত্তি করে।
-        এগুলো বিজ্ঞানভিত্তিক সাধারণ নির্দেশিকা; নির্দিষ্ট পরিসংখ্যান হিসেবে নয়। বাস্তব আবহাওয়া দিনে দিনে বদলাতে পারে, তাই ভ্রমণের দিন আবহাওয়ার তথ্য আবার দেখুন।
+        নিচের বিবরণ ঋতু অনুযায়ী প্রস্তুতির সাধারণ পরামর্শ; এই স্থানের আবহাওয়া বা জীববৈচিত্র্যের পরিমাপ নয়। বাস্তব আবহাওয়া দিনে দিনে বদলাতে পারে, তাই ভ্রমণের দিন আবহাওয়ার তথ্য আবার দেখুন।
       </p>
       <div class="season-table" role="table" aria-label="ঋতুভিত্তিক ভ্রমণ কৌশল">
         <div class="season-row season-head" role="row">
@@ -371,7 +354,7 @@ const faqSchema = {
       <div class="map-copy">
         <p class="eyebrow">অবস্থান</p>
         <h2 class="section-title">ধানমন্ডি লেকের ৮ নম্বর এলাকার জলধারে</h2>
-        <p>মানচিত্রে প্রদর্শিত স্থানাঙ্ক: {latitudeBn}, {longitudeBn}। এমবেড করা মানচিত্রের ভাষা ও অঞ্চল বাংলাদেশি বাংলা হিসেবে সেট করা হয়েছে।</p>
+        <p>২২ অক্টোবর ২০২৬-এর Google Maps স্থানের পিন: {latitudeBn}, {longitudeBn}। এটি নির্দিষ্ট প্রবেশপথ, পিকআপ পয়েন্ট বা বাধামুক্ত পথের নিশ্চয়তা নয়।</p>
         <nav class="geo-breadcrumb" aria-label="অবস্থানের শ্রেণিবিন্যাস">
           <span>রবীন্দ্র সরোবর</span>
           <span aria-hidden="true">→</span>
@@ -402,7 +385,7 @@ const faqSchema = {
       <p class="section-lead">এগুলো বাণিজ্যিক সুপারিশ নয়; অবস্থান ও জনপরিসরের চরিত্রের ভিত্তিতে সম্ভাব্য পরবর্তী গন্তব্যের ধরন। খোলার সময় ও প্রবেশনীতি আলাদাভাবে যাচাই করুন।</p>
       <div class="nearby-grid mt-8 md:mt-10">
         <article class="nearby-card"><span class="tag">হাঁটাপথ</span><h3>ধানমন্ডি লেকের অন্যান্য অংশ</h3><p>সেতু, বৃক্ষঘেরা হাঁটার পথ ও জলদৃশ্য ধরে একই লেকের ভিন্ন পরিবেশ দেখা যায়। সকালে দীর্ঘ হাঁটার সঙ্গে মিলিয়ে নেওয়া যায়।</p></article>
-        <article class="nearby-card"><span class="tag">নগর সংস্কৃতি</span><h3>শাহবাগ–চারুকলা সাংস্কৃতিক এলাকা</h3><p>বিশ্ববিদ্যালয়, শিল্পচর্চা, উদ্যান ও জাদুঘরকেন্দ্রিক ঢাকার গুরুত্বপূর্ণ সাংস্কৃতিক অঞ্চল; সড়কপথে সংক্ষিপ্ত যাত্রায় পৌঁছানো যায়।</p></article>
+        <article class="nearby-card"><span class="tag">নগর সংস্কৃতি</span><h3>শাহবাগ–চারুকলা সাংস্কৃতিক এলাকা</h3><p>বিশ্ববিদ্যালয়, শিল্পচর্চা, উদ্যান ও জাদুঘরকেন্দ্রিক ঢাকার গুরুত্বপূর্ণ সাংস্কৃতিক অঞ্চল; পৃথক গন্তব্য হিসেবে পথ, যাত্রার সময় ও প্রবেশনীতি যাচাই করুন।</p></article>
         <article class="nearby-card"><span class="tag">স্থাপত্য</span><h3>জাতীয় সংসদ ভবনের নগরদৃশ্য</h3><p>ঢাকার আধুনিক স্থাপত্য ও পরিকল্পিত উন্মুক্ত পরিসর বোঝার জন্য বাইরের জনসাধারণের অনুমোদিত অংশ থেকে দেখা যায়; নিরাপত্তা সীমা সম্মান করুন।</p></article>
       </div>
     </div>
@@ -423,7 +406,7 @@ const faqSchema = {
       </div>
       <figure class="photo-frame" style="min-height:560px; border-radius:90px 34px 34px 34px;">
         <img src={photos.lake.src} alt={photos.lake.alt} width="3072" height="4080" loading="lazy" style="object-position:center 52%;" />
-        <figcaption class="photo-credit">ছবি: {photos.lake.credit} · <a href={photos.lake.licenseUrl} rel="noreferrer">{photos.lake.license}</a> · <a href={photos.lake.source} rel="noreferrer">উৎস</a></figcaption>
+        <figcaption class="photo-credit">ছবি: {photos.lake.credit} · {photos.lake.title} · {photos.lake.dateLabel} · মূল ফাইল অপরিবর্তিত; পর্দায় অংশবিশেষ দেখা যেতে পারে। · <a href={photos.lake.licenseUrl} rel="noreferrer">{photos.lake.license}</a> · <a href={photos.lake.source} rel="noreferrer">উৎস</a></figcaption>
       </figure>
     </div>
   </section>
@@ -459,9 +442,10 @@ const faqSchema = {
         <p>কোনো একক উৎসকে চূড়ান্ত ধরে নেওয়া হয়নি। সরকারি সংস্থা, মানচিত্র তালিকা, সংবাদ প্রতিবেদন ও মুক্ত লাইসেন্সের আলোকচিত্র—একাধিক সূত্র মিলিয়ে বিষয়বস্তু তৈরি করা হয়েছে। সময়সংবেদনশীল তথ্য ভ্রমণের আগে আবার যাচাই করুন।</p>
         <ul>
           <li><a href="https://dscc.gov.bd/" rel="noreferrer">ঢাকা দক্ষিণ সিটি কর্পোরেশন — নগর সেবা ও স্থানীয় কর্তৃপক্ষ</a></li>
-          <li><a href="https://tourismboard.gov.bd/" rel="noreferrer">বাংলাদেশ ট্যুরিজম বোর্ড — জাতীয় পর্যটন তথ্য</a></li>
-          <li><a href="https://www.tbsnews.net/features/panorama/unfulfilled-promise-dhakas-open-air-theatres-1372181" rel="noreferrer">প্রকাশিত প্রতিবেদন — ঢাকার উন্মুক্ত মঞ্চ ও রবীন্দ্র সরোবরের সাম্প্রতিক প্রেক্ষিত</a></li>
-          <li><a href="https://www.tbsnews.net/bangladesh/infrastructure/tk75cr-makeover-planned-bring-dhanmondi-lake-back-life-1523076" rel="noreferrer">সাম্প্রতিক প্রতিবেদন — ধানমন্ডি লেকের পরিকল্পিত অবকাঠামো উন্নয়ন ও রক্ষণাবেক্ষণ</a></li>
+          <li><a href="https://beautifulbangladesh.gov.bd/event/160" rel="noreferrer">বাংলাদেশ ট্যুরিজম বোর্ড — ধানমন্ডির রবীন্দ্র সরোবরে নবান্নের বিবরণ; বর্তমান অনুষ্ঠানসূচি নয়</a></li>
+          <li><a href={seo.mapsShareUrl}>Google Maps — ২২ অক্টোবর ২০২৬-এর ঠিকানা, পিন ও মূল্যায়ন; খোলার সময় পাওয়া যায়নি</a></li>
+          <li><a href="https://www.tbsnews.net/features/panorama/unfulfilled-promise-dhakas-open-air-theatres-1372181" rel="noreferrer">২৭ ফেব্রুয়ারি ২০২৬-এর প্রতিবেদন — উন্মুক্ত মঞ্চ; সম্ভাব্য নির্মাণকাল নিশ্চিত ইতিহাস নয়</a></li>
+          <li><a href="https://www.tbsnews.net/bangladesh/infrastructure/tk75cr-makeover-planned-bring-dhanmondi-lake-back-life-1523076" rel="noreferrer">২৪ আগস্ট ২০২৬-এর প্রতিবেদন — পরিকল্পিত উন্নয়ন; নতুন সুবিধা চালু হওয়ার প্রমাণ নয়</a></li>
           <li><a href="https://commons.wikimedia.org/wiki/Category:Rabindra_Sarobar,_Dhaka" rel="noreferrer">উইকিমিডিয়া কমন্স — স্থান-নির্দিষ্ট মুক্ত আলোকচিত্র ও লাইসেন্স</a></li>
         </ul>
       </aside>

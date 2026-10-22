@@ -2,49 +2,50 @@ export const attraction = {
   name: 'রবীন্দ্র সরোবর',
   area: 'ধানমন্ডি, ঢাকা',
   address: '৮ নম্বর, ধানমন্ডি লেক রোড, ঢাকা ১২০৫, বাংলাদেশ',
-  latitude: 23.74526297867383,
-  longitude: 90.37459797714727,
+  latitude: 23.745263,
+  longitude: 90.3771729,
   rating: 4.4,
-  ratingCount: 49916,
-  hoursLabel: 'মানচিত্র তালিকায় ২৪ ঘণ্টা',
+  ratingCount: 49980,
+  hoursLabel: 'খোলার সময় যাচাই হয়নি',
   mapEmbed:
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6505.230712985949!2d90.37459797714727!3d23.74526297867383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b37ef4d09d%3A0x62503a7ef71da410!2sRobindro%20Sorobor!5e1!3m2!1sbn!2sBD!4v1787621273251!5m2!1sbn!2sBD',
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6505.230712985949!2d90.3771729!3d23.745263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b37ef4d09d%3A0x62503a7ef71da410!2sRobindro%20Sorobor!5e1!3m2!1sbn!2sBD!4v1787621273251!5m2!1sbn!2sBD',
 } as const;
 
 export const photos = {
   hero: {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Robindro_Sorobor01.JPG',
+    src: "/photos/hero-30d7c7ce1f8e.jpg",
     alt: 'ধানমন্ডি লেকের ধারে রবীন্দ্র সরোবরের উন্মুক্ত মঞ্চ ও ধাপভিত্তিক বসার জায়গা',
     credit: 'মো. শফিকুল ইসলাম চৌধুরী ‘টুটুল’',
     license: 'সিসি বাই-এসএ ৩.০',
     source: 'https://commons.wikimedia.org/wiki/File:Robindro_Sorobor01.JPG',
     licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    title: "Robindro Sorobor01.JPG",
+    published: "Published2008-08-13; capture date unspecified",
+    dateLabel: "ফাইল প্রকাশ: ১৩ আগস্ট ২০০৮; তোলার তারিখ অনির্দিষ্ট",
   },
   stage: {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/9/90/Robindro_Sorobor07.JPG',
+    src: "/photos/stage-0a6c63c36b4b.jpg",
     alt: 'লেকের জলরেখার সামনে রবীন্দ্র সরোবরের মঞ্চের কাছের দৃশ্য',
     credit: 'মো. শফিকুল ইসলাম চৌধুরী ‘টুটুল’',
     license: 'সিসি বাই-এসএ ৩.০',
     source: 'https://commons.wikimedia.org/wiki/File:Robindro_Sorobor07.JPG',
     licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    title: "Robindro Sorobor07.JPG",
+    published: "Published2008-08-13; capture date unspecified",
+    dateLabel: "ফাইল প্রকাশ: ১৩ আগস্ট ২০০৮; তোলার তারিখ অনির্দিষ্ট",
   },
   lake: {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/5/50/Dhanmondi_Lake_Dhaka.jpg',
+    src: "/photos/lake-0c6b10362e83.jpg",
     alt: 'ঢাকার ধানমন্ডি লেকের জল, সবুজ পাড় ও নগর দৃশ্য',
     credit: 'মাহজুজা ইসলাম',
     license: 'সিসি০ ১.০',
     source: 'https://commons.wikimedia.org/wiki/File:Dhanmondi_Lake_Dhaka.jpg',
     licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    title: "Dhanmondi Lake Dhaka.jpg",
+    published: "Photographed2024-11-07",
+    dateLabel: "ছবি: ৭ নভেম্বর ২০২৪",
   },
-  event: {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Channel_I_Bengali_New_Year_Ceremony_Rabindra_Sarobar_Dhanmondi_Dhaka_April_14_2025_%28PID-0002433%29.jpg',
-    alt: 'রবীন্দ্র সরোবরে বাংলা নববর্ষের সাংস্কৃতিক আয়োজনে শিল্পীদের সমবেত পরিবেশনা',
-    credit: 'বাংলাদেশ তথ্য অধিদফতর',
-    license: 'বাংলাদেশে পাবলিক ডোমেইন',
-    source:
-      'https://commons.wikimedia.org/wiki/File:Channel_I_Bengali_New_Year_Ceremony_Rabindra_Sarobar_Dhanmondi_Dhaka_April_14_2025_(PID-0002433).jpg',
-    licenseUrl: '',
-  },
+
 } as const;
 
 export const faqs = [
@@ -58,7 +59,11 @@ export const faqs = [
   },
   {
     q: 'রবীন্দ্র সরোবরে প্রবেশের জন্য কি টিকিট লাগে?',
-    a: 'লেকপাড় ও উন্মুক্ত জনপরিসরে সাধারণ প্রবেশ সাধারণত বিনামূল্যের। তবে কোনো সংগঠিত সাংস্কৃতিক অনুষ্ঠান, বিশেষ আয়োজন বা সাময়িক নিয়ন্ত্রিত প্রবেশের ক্ষেত্রে আলাদা নিয়ম বা টিকিট থাকতে পারে। যাওয়ার আগে আয়োজকের ঘোষণাই চূড়ান্ত ধরে নিন।',
+    a: 'বর্তমান প্রবেশমূল্য বা সর্বজনীন বিনামূল্যে প্রবেশের নিয়ম এখানে স্বাধীনভাবে যাচাই করা হয়নি। লেকপাড়ে প্রবেশ, অনুষ্ঠান ও ঐচ্ছিক সেবার শর্ত আলাদা হতে পারে। যাওয়ার আগে স্থানীয় নির্দেশনা ও আয়োজকের ঘোষণা দেখুন।',
+  },
+  {
+    q: 'রবীন্দ্র সরোবর কি ২৪ ঘণ্টা খোলা?',
+    a: '২২ অক্টোবর ২০২৬-এ দেখা Google Maps তালিকায় খোলার সময়ের সূচি পাওয়া যায়নি। তাই ২৪ ঘণ্টা প্রবেশের নিশ্চয়তা দেওয়া হচ্ছে না। অনুষ্ঠান, রক্ষণাবেক্ষণ ও স্থানীয় নির্দেশনায় প্রবেশ বদলাতে পারে; যাওয়ার আগে নিশ্চিত করুন।',
   },
   {
     q: 'কখন গেলে ভিড় তুলনামূলক কম থাকে?',
@@ -78,7 +83,7 @@ export const faqs = [
   },
   {
     q: 'পাবলিক টয়লেট পাওয়া যায়?',
-    a: 'ধানমন্ডি লেক এলাকার বিভিন্ন অংশে জনসাধারণের জন্য টয়লেট সুবিধা পাওয়া যায় বলে মানচিত্র ও স্থানীয় তালিকায় দেখা যায়। কার্যকর অবস্থা ও খোলার সময় পরিবর্তিত হতে পারে, তাই পৌঁছে সাইনবোর্ড বা নিরাপত্তাকর্মীর কাছ থেকে নিশ্চিত করা ভালো।',
+    a: 'টয়লেটের বর্তমান অবস্থান, খোলার সময় ও ব্যবহারযোগ্যতা এখানে যাচাই করা হয়নি। প্রয়োজন হলে পৌঁছে সাইনবোর্ড বা দায়িত্বপ্রাপ্ত কর্মীর কাছ থেকে নিশ্চিত করুন। পুরো লেকের সুবিধাকে এই মঞ্চের নিশ্চিত সুবিধা ধরে নেবেন না।',
   },
   {
     q: 'ছবি বা ভিডিও করা যায়?',
@@ -116,19 +121,18 @@ export function withSiteName(suffix: string): string {
   return `${SITE_NAME} | ${suffix}`;
 }
 
-// ঋতুভিত্তিক ভ্রমণ কৌশল — বাংলাদেশ আবহাওয়া অধিদপ্তরের দীর্ঘমেয়াদি জলবায়ু পর্যবেক্ষণের সাধারণ ধারণার ওপর ভিত্তি করে।
-// সুনির্দিষ্ট ৩০-বছরের পরিসংখ্যান নয়; ঢাকার সাধারণ ঋতুচক্র ও জলবায়ুর বিজ্ঞানভিত্তিক বিবরণ।
+// General seasonal preparation; not a measured climate series or wildlife inventory.
 export const seasonal = [
   {
     season: 'শীত (ডিসেম্বর–ফেব্রুয়ারি)',
-    weather: 'শুষ্ক ও শীতল; দিন ১৯–২৮°সে, রাতে নামতে পারে। মাঝেমাঝে ধুলোবাহিত কুয়াশা।',
+    weather: 'তুলনামূলক শীতল ও শুষ্ক আবহাওয়ার প্রস্তুতি নিন; রাতে ঠান্ডা লাগতে পারে। দিনের পূর্বাভাস দেখুন।',
     water: 'লেকের জল তুলনামূলক শান্ত; উন্মুক্ত বসার জন্য সবচেয়ে আরামদায়ক সময়।',
-    wildlife: 'অভ্যস্ত পাখি ও ছোট স্তন্যপায়ী দেখা যায়; ভিড় কম থাকায় প্রকৃতি পর্যবেক্ষণ সহজ।',
+    wildlife: 'পাখি দেখলে দূর থেকে পর্যবেক্ষণ করুন; এখানে নির্দিষ্ট প্রাণী দেখা যাওয়ার নিশ্চয়তা নেই।',
     advice: 'সকাল ও সন্ধ্যায় হালকা শাল বা জ্যাকেট কাজে দেয়। হাঁটার সেরা ঋতু।',
   },
   {
     season: 'গরম (মার্চ–মে)',
-    weather: 'তাপমাত্রা দ্রুত বাড়ে; এপ্রিল–মে-তে ৩৫°সে-র বেশি ছুঁতে পারে। ধুলো ও মাঝেমাঝে কালবৈশাখী ঝড়।',
+    weather: 'গরম, ধুলো ও ঝড়ের প্রস্তুতি নিন; যাওয়ার দিনের তাপমাত্রা ও সতর্কতা দেখুন।',
     water: 'শুকনো মৌসুমে লেকের পৃষ্ঠ সবুজাভ হতে পারে; তাপপ্রবাহে বিকেলে উন্মুক্ত মঞ্চ গরম লাগতে পারে।',
     wildlife: 'পাতা ঝরা ও ফুলের মৌসুম; পাখির সক্রিয়তা সকালে বেশি।',
     advice: 'সূর্যোদয় বা সূর্যাস্তের কাছাকাছি যান; পানি, টুপি ও সানস্ক্রিন রাখুন।',
@@ -144,7 +148,7 @@ export const seasonal = [
     season: 'হেমন্ত ও শরৎ (অক্টোবর–নভেম্বর)',
     weather: 'বর্ষা কেটে নাতিশীতোষ্ণ; আকাশ পরিষ্কার, আর্দ্রতা কমে। অক্টোবরে মাঝেমাঝে বৃষ্টি থাকতে পারে।',
     water: 'লেকের জল শান্ত ও প্রতিফলন সুন্দর; আলোকচিত্রের জন্য ভালো সময়।',
-    wildlife: 'পরিযায়ী পাখি ও পোকামাকড়ের উপস্থিতি; সন্ধ্যায় পোকামাকড় প্রতিরোধক কাজে দেয়।',
+    wildlife: 'পোকামাকড় থেকে সুরক্ষার প্রস্তুতি নিন; এখানে পরিযায়ী পাখি দেখার নিশ্চয়তা নেই।',
     advice: 'সারা বছরের মধ্যে ভ্রমণ ও আলোকচিত্রের জন্য ভারসাম্যপূর্ণ সময়।',
   },
 ] as const;

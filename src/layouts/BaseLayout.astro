@@ -9,6 +9,7 @@ interface Props {
   imageAlt?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   pageClass?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -18,6 +19,7 @@ const {
   imageAlt = 'রবীন্দ্র সরোবর, ধানমন্ডি — ঢাকা',
   structuredData,
   pageClass = '',
+  noindex = false,
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
@@ -34,6 +36,7 @@ const jsonLd = structuredData
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#173a34" />
     <meta name="color-scheme" content="light" />
     <title>{title}</title>
@@ -55,33 +58,7 @@ const jsonLd = structuredData
     {jsonLd.map((entry) => (
       <script type="application/ld+json" set:html={JSON.stringify(entry)} />
     ))}
-    <script is:inline>
-      (() => {
-        const key = 'রবীন্দ্র-সরোবর-কুকি-পছন্দ';
-        let loaded = false;
-        const readPreference = () => {
-          try {
-            return JSON.parse(localStorage.getItem(key) || '{}');
-          } catch {
-            return {};
-          }
-        };
-        const loadAnalytics = () => {
-          if (loaded || !readPreference().analytics) return;
-          loaded = true;
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = function () { window.dataLayer.push(arguments); };
-          window.gtag('js', new Date());
-          window.gtag('config', 'G-HXM22WWPKP', { anonymize_ip: true });
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP';
-          document.head.appendChild(script);
-        };
-        loadAnalytics();
-        window.addEventListener('কুকি-পছন্দ-বদলেছে', loadAnalytics);
-      })();
-    </script>
+    <script is:inline src="/consent.js" defer></script>
   </head>
   <body class={pageClass}>
     <a class="skip-link" href="#মূল-কনটেন্ট">মূল কনটেন্টে যান</a>
@@ -146,9 +123,9 @@ const jsonLd = structuredData
       </div>
       <div class="shell footer-notice">
         <p>এই ওয়েবসাইট একটি স্বাধীন, অলাভজনক দর্শনার্থী তথ্য নির্দেশিকা প্রকল্প; কোনো সরকারি প্রতিষ্ঠান বা দাপ্তরিক সংগঠনের সঙ্গে এর সাংগঠনিক সম্পর্ক নেই।</p>
-        <p>এখানকার স্থান-সংক্রান্ত তথ্য ঢাকা দক্ষিণ সিটি কর্পোরেশন, বাংলাদেশ ট্যুরিজম বোর্ড, বাংলাদেশ পর্যটন করপোরেশন এবং উন্মুক্ত নির্ভরযোগ্য উৎসের তথ্য মিলিয়ে উপস্থাপন করা হয়েছে; এতে কোনো বাণিজ্যিক প্রতিষ্ঠানকে সুপারিশ করা হয়নি।</p>
+        <p>স্থান-সংক্রান্ত তথ্যের নির্দিষ্ট উৎস ও সীমা প্রথম পাতায় দেওয়া হয়েছে। সরকারি পর্যটন তথ্য, মানচিত্র তালিকা ও তারিখযুক্ত সংবাদ প্রতিবেদনকে তাদের নিজস্ব পরিসরে ব্যবহার করা হয়েছে; এতে কোনো বাণিজ্যিক প্রতিষ্ঠানকে সুপারিশ করা হয়নি।</p>
         <p>ছবির স্বত্ব: এই ওয়েবসাইটে প্রদর্শিত ছবির স্বত্ব ও প্রযোজ্য লাইসেন্স মূল আলোকচিত্রী বা উৎস প্রতিষ্ঠানের অধীনে থাকে; প্রতিটি ছবির কৃতিত্ব সংশ্লিষ্ট অংশে দেওয়া হয়েছে।</p>
-        <p>© ২০২৬ রবীন্দ্র সরোবর পর্যটক নির্দেশিকা। সর্বস্বত্ব সংরক্ষিত।</p>
+        <p>© ২০২৬ রবীন্দ্র সরোবর পর্যটক নির্দেশিকা। মূল লেখা ও নকশার স্বত্ব সংরক্ষিত; ছবির পৃথক লাইসেন্স প্রযোজ্য।</p>
       </div>
     </footer>
 

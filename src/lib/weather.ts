@@ -29,6 +29,7 @@ export interface AlertItem {
 }
 
 export interface WeatherData {
+  observedAt?: string;
   now: NowWeather;
   today: { tmax: number; tmin: number; pop: number; code: number };
   days: DayWeather[];
@@ -144,6 +145,7 @@ export function buildWeatherUrl(lat: number, lon: number): string {
 
 // কাঁচা Open-Meteo JSON → আমাদের WeatherData আকৃতি (সার্ভার ও ক্লায়েন্ট উভয়ে ব্যবহৃত)।
 export function parseWeather(raw: any): WeatherData {
+  if (!Number.isFinite(raw?.current?.temperature_2m) || !Array.isArray(raw?.daily?.time) || !raw.daily.time.length) throw Error('Weather data unavailable');
   const cur = raw?.current ?? {};
   const daily = raw?.daily ?? {};
   const hourly = raw?.hourly ?? {};
@@ -177,6 +179,7 @@ export function parseWeather(raw: any): WeatherData {
   const today = days[0] ?? { tmax: 0, tmin: 0, pop: 0, code: 0 };
 
   return {
+    observedAt: typeof cur.time === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(cur.time) ? cur.time : '',
     now: {
       temp: cur.temperature_2m ?? 0,
       feels: cur.apparent_temperature ?? cur.temperature_2m ?? 0,
@@ -354,5 +357,6 @@ export function renderWeatherHTML(w: WeatherData): string {
     })
     .join('');
 
-  return `${now}${advice}<div class="weather-days">${cards}</div>`;
+  const stamp = w.observedAt ? `<p class="weather-source">স্থানীয় তথ্যের সময়: ${w.observedAt.replace("T", " ")}</p>` : "";
+  return `${stamp}${now}${advice}<div class="weather-days">${cards}</div>`;
 }

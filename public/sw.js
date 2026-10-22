@@ -2,7 +2,7 @@
 // পৃষ্ঠা: নেটওয়ার্ক-ফার্স্ট (সর্বদা সতেজ), ব্যর্থ হলে ক্যাশে।
 // স্থির সম্পদ: ক্যাশে-ফার্স্ট (দ্রুত লোড)।
 
-const CACHE = 'robindro-sorobor-v1';
+const CACHE = 'robindro-sorobor-v2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -27,6 +27,7 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
 
   const url = new URL(request.url);
+  if (url.pathname === '/consent.js') return;
   if (url.origin !== self.location.origin) return; // গুগল মানচিত্র/অ্যানালিটিক্স বাইরে রাখুন
 
   // পৃষ্ঠা নেভিগেশন: network-first, পড়ে গেলে ক্যাশে/অফলাইন ফলব্যাক

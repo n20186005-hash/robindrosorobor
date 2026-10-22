@@ -1,0 +1,53 @@
+[
+  {
+    "id": "hero",
+    "title": "Robindro Sorobor01.JPG",
+    "publicURL": "/photos/hero-30d7c7ce1f8e.jpg",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Robindro_Sorobor01.JPG",
+    "originalURL": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Robindro_Sorobor01.JPG?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+    "originalSHA1": "acfc4d338559620358649d567dd47db5a7d8e434",
+    "originalSHA256": "30d7c7ce1f8ed3288d4a90eca73193c359d6f4d27129e433bab528b6bae8527a",
+    "originalBytes": 634147,
+    "width": 2048,
+    "height": 1536,
+    "author": "Md. Shafiqul Islam Chowdhury ‘Tutul’",
+    "license": "CC BY-SA 3.0",
+    "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "dateScope": "Published 2008-08-13; capture date unspecified",
+    "modifications": "Original bytes hosted locally; CSS may crop the displayed frame."
+  },
+  {
+    "id": "stage",
+    "title": "Robindro Sorobor07.JPG",
+    "publicURL": "/photos/stage-0a6c63c36b4b.jpg",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Robindro_Sorobor07.JPG",
+    "originalURL": "https://upload.wikimedia.org/wikipedia/commons/9/90/Robindro_Sorobor07.JPG?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+    "originalSHA1": "9f0f9cc16125addaa6e9332007dd183b164ec8e2",
+    "originalSHA256": "0a6c63c36b4b0145cd673fadd7a29dd2d56da6f8e2adeb417ed4b28c52df263e",
+    "originalBytes": 669702,
+    "width": 2048,
+    "height": 1536,
+    "author": "Md. Shafiqul Islam Chowdhury ‘Tutul’",
+    "license": "CC BY-SA 3.0",
+    "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "dateScope": "Published 2008-08-13; capture date unspecified",
+    "modifications": "Original bytes hosted locally; CSS may crop the displayed frame."
+  },
+  {
+    "id": "lake",
+    "title": "Dhanmondi Lake Dhaka.jpg",
+    "publicURL": "/photos/lake-0c6b10362e83.jpg",
+    "filePage": "https://commons.wikimedia.org/wiki/File:Dhanmondi_Lake_Dhaka.jpg",
+    "originalURL": "https://upload.wikimedia.org/wikipedia/commons/5/50/Dhanmondi_Lake_Dhaka.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+    "originalSHA1": "48a3deb147473d20a0e87cf97ebbff64a7c729d0",
+    "originalSHA256": "0c6b10362e8306cf241ee0c981ff2437729cf17d938ca41f3643fe4fe6febf35",
+    "originalBytes": 5156039,
+    "width": 3072,
+    "height": 4080,
+    "author": "Mahjuja Islam",
+    "license": "CC0",
+    "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "dateScope": "Photographed 2024-11-07",
+    "modifications": "Original bytes hosted locally; CSS may crop the displayed frame."
+  }
+]
