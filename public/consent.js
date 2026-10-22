@@ -14,7 +14,7 @@
   function clearDeny(){
     // Verify this tab's refusal is clear before publishing a shared grant.
     sessionStorage.removeItem(DENY);
-    if(sessionStorage.getItem(DENY)==='1')throw Error('Session refusal remains');
+    if(sessionStorage.getItem(DENY)!==null)throw Error('Session refusal remains');
     window.name=window.name.split(MARK).join('');
     if(window.name.includes(MARK))throw Error('Tab refusal remains');
   }
@@ -37,18 +37,32 @@
     const script=document.createElement('script');script.id='robindro-ga4';script.async=true;script.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(script);
     window.gtag('js',new Date());window.gtag('config',ID,{allow_google_signals:false,allow_ad_personalization_signals:false});
   }
+  function rollbackGrant(){
+    try{
+      localStorage.setItem(KEY,JSON.stringify({necessary:true,analytics:false,preferences:false,marketing:false}));
+      if(JSON.parse(localStorage.getItem(KEY)||'null')?.analytics===false)return true;
+    }catch{}
+    try{localStorage.removeItem(KEY);return localStorage.getItem(KEY)===null;}catch{return false;}
+  }
   const checkbox=document.getElementById('বিশ্লেষণ'),status=document.getElementById('কুকি-বার্তা');
-  let retainedDenial=false,effective=false;
+  let retainedDenial=false,effective=false,grantCleared=false;
   function refresh(){effective=read()?.analytics===true;apply(effective);if(checkbox)checkbox.checked=effective;}
   function save(analytics){
-    analytics=analytics===true;
+    analytics=analytics===true;grantCleared=false;
     if(!analytics){retainedDenial=markDeny();apply(false);}
     try{
       if(analytics){clearDeny();localStorage.getItem(KEY);localStorage.setItem(KEY+'-write-check','1');localStorage.removeItem(KEY+'-write-check');}
       localStorage.setItem(KEY,JSON.stringify({necessary:true,analytics,preferences:false,marketing:false}));
+      if(JSON.parse(localStorage.getItem(KEY)||'null')?.analytics!==analytics)throw Error('Choice not confirmed');
       if(analytics)window.__robindroDenied=false;
-      refresh();return true;
-    }catch{retainedDenial=markDeny();refresh();return false;}
+      refresh();
+      if(analytics&&!effective)throw Error('Grant not confirmed');
+      return true;
+    }catch{
+      apply(false);retainedDenial=markDeny();
+      if(analytics)grantCleared=rollbackGrant();
+      refresh();return false;
+    }
   }
   window.robindroConsent={read,save};
   const unused=document.getElementById('পছন্দ');if(unused){unused.checked=false;unused.disabled=true;}
@@ -56,9 +70,9 @@
   function choose(value){
     const stored=save(value);
     if(status)status.textContent=stored
-      ?effective?'এই ব্রাউজারে Google Analytics অনুমোদিত।':value?'পছন্দ সংরক্ষিত হলেও স্টোরেজ যাচাই করা যায়নি। এই ট্যাবে Google Analytics বন্ধ আছে।':'এই ব্রাউজারে Google Analytics প্রত্যাখ্যান করা হয়েছে।'
-      :retainedDenial?'Google Analytics এই ট্যাবে বন্ধ আছে; একই সাইটে যাতায়াত ও পুনরায় লোডেও প্রত্যাখ্যান বজায় থাকবে। স্থায়ী পছন্দ সংরক্ষণ হয়নি, তাই অন্য ট্যাবে পুরোনো অনুমতি থাকতে পারে। ব্রাউজার সেটিংস থেকে সাইটের ডেটা মুছুন।'
-      :'Google Analytics এই পাতায় বন্ধ আছে। যাতায়াত বা পুনরায় লোডের পর প্রত্যাখ্যান থাকবে—এমন নিশ্চয়তা নেই। পুরোনো অনুমতি মুছতে ব্রাউজার সেটিংস থেকে সাইটের ডেটা মুছুন।';
+      ?effective?'এই ট্যাবে Google Analytics অনুমোদিত।':'এই ট্যাবে Google Analytics প্রত্যাখ্যান করা হয়েছে।'
+      :grantCleared?'Google Analytics এই ট্যাবে বন্ধ আছে। যাচাই করা যায়নি এমন সংরক্ষিত অনুমতি প্রত্যাখ্যান বা মুছে ফেলা হয়েছে। আবার অনুমতি দেওয়ার আগে এই সেটিংস যাচাই করুন।':retainedDenial?'Google Analytics এই ট্যাবে বন্ধ আছে; একই সাইটে যাতায়াত ও পুনরায় লোডেও প্রত্যাখ্যান বজায় থাকবে। স্থায়ী পছন্দ সংরক্ষণ হয়নি, তাই সংরক্ষিত অনুমতি থেকে যেতে পারে এবং অন্য ট্যাবে ব্যবহার হতে পারে। ব্রাউজার সেটিংস থেকে সাইটের ডেটা মুছুন।'
+      :'Google Analytics এই পাতায় বন্ধ আছে। সংরক্ষিত অনুমতি থেকে যেতে পারে এবং অন্য ট্যাবে ব্যবহার হতে পারে। যাতায়াত বা পুনরায় লোডের পর প্রত্যাখ্যান থাকবে—এমন নিশ্চয়তা নেই। সংরক্ষিত অনুমতি মুছতে ব্রাউজার সেটিংস থেকে সাইটের ডেটা মুছুন।';
   }
   document.getElementById('পছন্দ-সংরক্ষণ')?.addEventListener('click',()=>choose(checkbox?.checked===true));
   document.getElementById('সব-প্রত্যাখ্যান')?.addEventListener('click',()=>choose(false));
