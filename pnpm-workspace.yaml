@@ -1,0 +1,4 @@
+# Native tools required by the existing locked Astro/Vite and Wrangler builds.
+allowBuilds:
+  esbuild: true
+  workerd: true
