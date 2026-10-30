@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Topic } from '../data/topics';
+import { topicPath, getTopic, topicGroupLabel } from '../data/topics';
+import { seo, SITE_NAME } from '../data/site';
+
+interface Props {
+  topic: Topic;
+}
+
+const { topic } = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
+const homeUrl = Astro.site ? new URL('/', Astro.site).toString() : '/';
+const groupLabel = topicGroupLabel(topic.group);
+const groupAnchor = `${homeUrl}#${encodeURIComponent(groupLabel)}`;
+
+// অনুমোদিত (বিদ্যমান) সম্পর্কিত বিষয় ফিল্টার করুন — অস্তিত্বহীন slug-এর দিকে মৃত লিঙ্ক এড়াতে
+const relatedTopics = topic.related
+  .map((slug) => getTopic(slug))
+  .filter((t): t is Topic => Boolean(t) && t!.slug !== topic.slug);
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: topic.h1,
+  description: topic.metaDescription,
+  inLanguage: 'bn-BD',
+  url: canonical,
+  about: {
+    '@type': ['TouristAttraction', 'Amphitheatre'],
+    name: seo.attractionFullNameEn,
+    url: homeUrl,
+  },
+  isPartOf: {
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: homeUrl,
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'প্রথম পাতা',
+      item: homeUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: groupLabel,
+      item: groupAnchor,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: topic.h1,
+      item: canonical,
+    },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: topic.faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+
+const structuredData = [webPageSchema, breadcrumbSchema, faqSchema];
+---
+
+<BaseLayout
+  title={topic.metaTitle}
+  description={topic.metaDescription}
+  structuredData={structuredData}
+>
+  <section class="topic-hero" aria-labelledby="topic-title">
+    <div class="shell">
+      <p class="eyebrow">{topic.kicker}</p>
+      <h1 id="topic-title">{topic.h1}</h1>
+      <p class="topic-lead">{topic.lead}</p>
+    </div>
+  </section>
+
+  <div class="shell topic-updated" aria-label="সর্বশেষ হালনাগাদ">
+    <p>সর্বশেষ হালনাগাদ: {topic.updated} · স্বাধীন ও অলাভজনক দর্শনার্থী নির্দেশিকা</p>
+  </div>
+
+  {
+    topic.sections.map((section) => (
+      <section class="section" id={section.heading}>
+        <div class="shell">
+          <h2 class="section-title">{section.heading}</h2>
+          {section.paragraphs && (
+            <div class="topic-prose">
+              {section.paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
+          )}
+          {section.bullets && (
+            <ul class="topic-bullets">
+              {section.bullets.map((b) => (
+                <li>{b}</li>
+              ))}
+            </ul>
+          )}
+          {section.note && (
+            <aside class="update-note">
+              {section.noteTitle && <strong>{section.noteTitle}</strong>}
+              <p>{section.note}</p>
+            </aside>
+          )}
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="section" id="সাধারণ-জিজ্ঞাসা" style="padding-top:0;">
+    <div class="shell">
+      <p class="eyebrow" style="text-align:center;">সাধারণ জিজ্ঞাসা</p>
+      <h2 class="section-title" style="margin-inline:auto; text-align:center;">এই বিষয়ে ছোট কিন্তু গুরুত্বপূর্ণ উত্তর</h2>
+      <div class="faq-wrap">
+        {
+          topic.faqs.map((item) => (
+            <details class="faq">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    relatedTopics.length > 0 && (
+      <section class="section" id="সম্পর্কিত-বিষয়" style="padding-top:0;">
+        <div class="shell">
+          <p class="eyebrow">সম্পর্কিত বিষয়</p>
+          <h2 class="section-title">আরও পড়ুন</h2>
+          <div class="nearby-grid mt-8 md:mt-10">
+            {relatedTopics.map((t) => (
+              <a class="nearby-card" href={topicPath(t.slug)}>
+                <span class="tag">{topicGroupLabel(t.group)}</span>
+                <h3>{t.h1}</h3>
+                <p>{t.lead}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section-tight topic-back">
+    <div class="shell">
+      <a class="btn btn-secondary" href={`/#${encodeURIComponent(groupLabel)}`}>← {groupLabel}-এ ফিরে যান</a>
+      <a class="btn btn-primary" href="/">প্রথম পাতায় যান</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,37 @@
+---
+import { TOPICS, topicsByGroup, topicPath, topicGroupLabel, GROUP_ORDER } from '../data/topics';
+
+// গ্রুপ অনুযায়ী ৩৯টি বিষয়ের অভ্যন্তরীণ লিঙ্ক ক্লাস্টার।
+const groups = GROUP_ORDER.map((group) => ({
+  group,
+  label: topicGroupLabel(group),
+  topics: topicsByGroup(group),
+}));
+---
+
+<section class="section topic-cluster" id="বিষয়">
+  <div class="shell">
+    <p class="eyebrow">বিষয়ভিত্তিক নির্দেশিকা</p>
+    <h2 class="section-title">আরও {TOPICS.length}টি বিষয় — পরিদর্শন, যাতায়াত, লেক, খাবার, আশপাশ ও ভ্রমণ পথ</h2>
+    <p class="section-lead">
+      প্রতিটি বিষয় স্বাধীনভাবে যাচাই করা, নিরপেক্ষ তথ্যের ওপর ভিত্তি করে তৈরি—কোনো নির্দিষ্ট ব্যবসা বা পরিবহন অপারেটরকে সুপারিশ না করে।
+    </p>
+
+    {
+      groups.map((g) => (
+        <div class="topic-group" id={g.label}>
+          <h3>{g.label}</h3>
+          <div class="nearby-grid">
+            {g.topics.map((t) => (
+              <a class="nearby-card" href={topicPath(t.slug)}>
+                <span class="tag">{t.kicker}</span>
+                <h3>{t.h1}</h3>
+                <p>{t.lead}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
